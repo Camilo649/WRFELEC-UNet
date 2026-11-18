@@ -43,6 +43,7 @@ hiperparámetros.
 ## Contenido
 
 ```
+modulos/     tormentaDataset.py (Dataset de PyTorch usado por los notebooks)
 notebooks/   Datasets, entrenamientos y optimizaciones (sin outputs)
 figuras/     Scripts que generan las figuras y tablas de la tesis
 results/
@@ -57,6 +58,22 @@ results/
 Las cuatro tormentas animadas son las de los días 14/12/2018, 29/01/2019,
 09/02/2019 y 04/03/2019.
 
+## Notebooks
+
+| Notebook | Contenido |
+|---|---|
+| `Datasets` | Análisis, filtrado y construcción de los datasets (Fases 1 a 5, incluido el temporal) |
+| `Pruebas` | Bob, Baseline, U-Net y variantes con MSE/WMSE (conjunto inicial) |
+| `Entrenamiento_unetCombv1`, `Entrenamiento_unetCombv2`, `Entrenamiento_unetCombv2AveragePool` | U-Nets con pérdida híbrida Comb, incluida la prueba con *average pooling* |
+| `Entrenamiento_Fer-Net` | Esquemas de ponderación asimétrica de la FACL (Fer-Net, Net-Fer) |
+| `Entrenamiento_FatShortUnetFACL` | Ext Clip U-Net FACL: entrenamiento, importancia de variables y optimización |
+| `Entrenamiento_MemoFatShortUnetFACL` | Temp Ext Clip U-Net FACL (último modelo) |
+| `Graficas` | Figuras de la tesis |
+| `auxiliares/` | Preliminares (`modelos_preliminares`, en Keras), exploración de un `wrfout`, validación de las simulaciones nuevas y lectura de los estudios de Optuna |
+
+Los nombres de los notebooks conservan la nomenclatura interna del
+desarrollo (*FatShort* = Ext Clip, *Memo* = Temp).
+
 ## Datos
 
 El conjunto de datos (salidas de las simulaciones WRF y WRF-ELEC, 23 días de
@@ -69,7 +86,10 @@ describe en `notebooks/Datasets.ipynb` y en el Capítulo 4 de la tesis.
 - Las dependencias están en `requirements.txt` (sin versiones fijas todavía).
 - Los notebooks conservan rutas de la máquina donde se entrenaron
   (`/home/gcamilo/...`, `drive/MyDrive/...`): hay que ajustarlas.
-- Los notebooks importan el módulo local `modulos.tormentaDataset`.
+- Los notebooks esperan la estructura `../dataset`, `../modelos`, `../estudios`, etc.
+  relativa a `notebooks/`, y usan `modulos/tormentaDataset.py`.
+- Los notebooks de `auxiliares/modelos_preliminares` usan TensorFlow/Keras; el
+  resto, PyTorch.
 
 ## Licencia
 
