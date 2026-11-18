@@ -108,8 +108,7 @@ describe en `notebooks/Datasets.ipynb` y en el Capítulo 4 de la tesis.
 
 ## Reproducibilidad
 
-- Notebooks: Python 3.12, PyTorch 2.6.0 con CUDA 12.4 (`requirements.txt`; las versiones
-  de algunas librerías todavía no están fijadas). Scripts de Clementina: entorno
+- Notebooks: Python 3.12, PyTorch 2.6.0 con CUDA 12.4 (`requirements.txt`). Scripts de Clementina: entorno
   `torch_xpu` (PyTorch para GPU Intel).
 - Los notebooks conservan rutas de la máquina donde se entrenaron
   (`/home/gcamilo/...`, `drive/MyDrive/...`): hay que ajustarlas.

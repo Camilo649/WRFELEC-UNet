@@ -1,5 +1,5 @@
 # Entorno de los notebooks: JupyterHub (CCAD), Python 3.12, CUDA 12.4
-# Versiones confirmadas en los outputs de los notebooks:
+# Versiones del entorno `wrf312` (pip/conda):
 torch==2.6.0
 matplotlib==3.10.8
 cartopy==0.26.0
@@ -10,14 +10,13 @@ optuna==4.9.0
 scikit-image==0.26.0
 torchinfo==1.8.0
 
-# Sin versión fijada todavía:
-numpy
-scipy
-pandas
-seaborn
-netCDF4
-xarray
-tqdm
+numpy==2.5.1
+scipy==1.18.0
+pandas==3.0.5
+seaborn==0.13.2
+netCDF4==1.7.4
+xarray==2026.7.0
+tqdm==4.70.0
 jupyter
 # Solo para notebooks/auxiliares/modelos_preliminares.ipynb:
 # tensorflow
