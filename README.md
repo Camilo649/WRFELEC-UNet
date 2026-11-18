@@ -70,7 +70,7 @@ Las cuatro tormentas animadas son las de los días 14/12/2018, 29/01/2019,
 | `Entrenamiento_Ext_U-Net_Comb_V2.1` | Ext U-Net Comb V2.1: entrenamiento, importancia de variables y optimización |
 | `Entrenamiento_Ext_Clip_U-Net_FACL` | Ext Clip U-Net FACL: entrenamiento, importancia de variables y optimización |
 | `Entrenamiento_Temp_Ext_Clip_U-Net_FACL` | Temp Ext Clip U-Net FACL (último modelo) |
-| `Entrenamiento_Ext_Clip_U-Net_Comb_V2.1` | Ext Clip U-Net Comb V2.1: evaluación del mejor ensayo de su optimización e importancia de variables |
+| `Entrenamiento_Ext_Clip_U-Net_Comb_V2.1` | Ext Clip U-Net Comb V2.1: evaluación del mejor ensayo de su optimización |
 | `Graficas` | Figuras de la tesis |
 | `auxiliares/` | Preliminares (`modelos_preliminares`, en Keras), exploración de un `wrfout`, validación de las simulaciones nuevas y lectura de los estudios de Optuna |
 
