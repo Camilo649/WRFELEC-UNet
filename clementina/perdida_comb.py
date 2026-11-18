@@ -1,4 +1,4 @@
-"""Pérdida Comb V2.1 (clase HybridFourierLossV2 de Entrenamiento_unetCombv2.ipynb, sin uncertainty weighting).
+"""Pérdida Comb V2.1 (clase HybridFourierLossV2 de Entrenamiento_Ext_U-Net_Comb_V2.1.ipynb, sin uncertainty weighting).
 
   Q(t): prob. de usar el WMSE. Se replica EL CÓDIGO del notebook:
         prob_t = min{ (t * prob_slope) * (max_prob - min_prob) + min_prob , max_prob },

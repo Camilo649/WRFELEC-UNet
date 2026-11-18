@@ -20,7 +20,7 @@
 import json
 import os
 
-CKPT = ('../modelos/etapa_B_Fat_Short_Unet_FACL/'
+CKPT = ('../modelos/etapa_B_Ext_Clip_U-Net_FACL/'
         'B_trial0039_repro_curvas.pth')
 N_REPEATS = 100
 nombres_wrf = ['MDBZ', 'HIELO', 'CTT']

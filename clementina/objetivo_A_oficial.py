@@ -31,7 +31,7 @@ from facl_oficial import RandomScheduling      # copia textual de utilspp.Random
 from datos import train_dataset, val_dataset, DATASET_DIR
 
 SEED = 42
-NOMBRE_MODELO = 'Memo Fat Short Unet FACL oficial'
+NOMBRE_MODELO = 'Temp Ext Clip U-Net FACL oficial'
 device = torch.device(os.environ.get("DEVICE", "xpu"))     # DEVICE=cpu solo para pruebas locales
 
 # ==========================================

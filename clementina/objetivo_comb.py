@@ -1,5 +1,5 @@
 """Optimización de la Ext U-Net Comb V2.1 en dos fases, con el protocolo de las optimizaciones anteriores de la Comb
-(Tablas 5.3 y 5.4 de la monografía y bitácora) y los ajustes que justifican las propias corridas de la V2.2 (BITACORA).
+(Tablas 5.3 y 5.4 de la monografía y bitácora) y los ajustes que justifican las propias corridas de la V2.1 (BITACORA).
 
   ETAPA=A (Fase 1, arquitectura): 3 niveles FIJOS (reunión del 05/10); filtros del primer nivel 16/32/64; kernel de cada
       nivel 3/5/7/9; dropout de cada nivel en [0, 0.3]. Fijo (ver FIJOS_A): lr 1e-4, lote 16, MAX_PROB 0.75, w+ 17.53,
@@ -7,7 +7,7 @@
   ETAPA=B (Fase 2, entrenamiento): arquitectura fija leída de estudios/arq_comb_A.json (la deja arq_desde_A.py a partir del
       journal de la Etapa A). Se busca lr, lote, MAX_PROB y max_norm. Fijos (ver FIJOS_B): 150 épocas con early stopping
       (paciencia 15), w+ 17.53 y rampa de 60 épocas. w+ y la rampa van FIJOS: con el WMSE en escala real, el valor de la
-      pérdida depende directamente de w+, y en las dos Etapas B de la V2.2 w+ explicó el 92-95 % de la importancia y se
+      pérdida depende directamente de w+, y en las dos Etapas B de la V2.1 w+ explicó el 92-95 % de la importancia y se
       fue al piso del rango (reunión del 13/08).
 
 Criterio de Optuna y "mejor época": la pérdida de validación propia de la Comb, (WMSE + sqrt(HW)*FAL + sqrt(HW)*FCL)/3
@@ -63,7 +63,7 @@ DROPOUT_A = (0.0, 0.30)
 if SMOKE:        # solo para la prueba rápida: espacio mínimo
     NIVELES_A, FILTROS_A, KERNELS_A = [3], [16], [3]
 
-# Etapa B (Tabla 5.4 y Etapas B de la V2.2): se busca lr, lote, MAX_PROB y max_norm; w+ y la rampa van fijos
+# Etapa B (Tabla 5.4 y Etapas B de la V2.1): se busca lr, lote, MAX_PROB y max_norm; w+ y la rampa van fijos
 FIJOS_B = dict(epocas=3 if SMOKE else 150, paciencia=15, w_pos=W_POS_FIJO, rampa_epocas=RAMPA_EPOCAS_FIJA)
 LR_RANGO = (1e-5, 1e-3)
 BATCH_B = [8, 16, 32]                # la Tabla 5.4 incluía 4; con el conjunto extendido y 150 épocas es inviable

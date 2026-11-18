@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Celda para el final de Entrenamiento_Temp_Ext_Clip_U-Net_FACL.ipynb
 # (necesita `modelo` = ensayo 100, `val_dataset`, `device`).
-# Genera memo_trial100_instante.npz con la predicción del modelo
+# Genera temp_trial100_instante.npz con la predicción del modelo
 # final para el instante de la figura de comparación.
 import numpy as np
 import torch
@@ -31,8 +31,8 @@ csi = float(((real > 0) & (pred > 0)).sum() / m.sum()) \
 print(f"{ARCHIVO}: real max {real.max():.0f}, "
       f"pred max {pred.max():.0f}, CSI {csi:.4f}")
 
-np.savez("memo_trial100_instante.npz",
-         nombre="Memo Fat Short U-Net FACL",
+np.savez("temp_trial100_instante.npz",
+         nombre="Temp Ext Clip U-Net FACL",
          archivo=ARCHIVO, y_real=real, pred=pred, csi=csi,
          X=X.numpy())
-print("Guardado memo_trial100_instante.npz")
+print("Guardado temp_trial100_instante.npz")

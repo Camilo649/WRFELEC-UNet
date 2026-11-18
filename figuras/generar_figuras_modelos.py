@@ -17,7 +17,7 @@ La segunda figura lee figuras/datos/comparacion_instante.npz, que
 se genera en la notebook con figuras/celda_comparacion_modelos.py.
 Si ese archivo no existe, dibuja una versión provisoria con el
 instante de figuras/datos/instante_1924.npz (solo el valor real,
-Bob y el modelo Memo) y deja el resto de los paneles marcados como
+Bob y el modelo Temp) y deja el resto de los paneles marcados como
 pendientes.
 """
 import os
@@ -85,28 +85,28 @@ def fig_comparacion():
         D = np.load(os.path.join(HERE, "datos", "instante_1924.npz"))
         real = D["y_real"]
         nombres = []
-        preds = {"Memo Fat Short U-Net FACL":
+        preds = {"Temp Ext Clip U-Net FACL":
                  np.round(D["pred_real"])}
         provisoria = True
 
     # Solo se muestra la versión optimizada de cada modelo. En el
     # .npz el modelo optimizado se llama "(Optimized)"; en la
-    # monografía no se lo distingue en el nombre. El Memo todavía
+    # monografía no se lo distingue en el nombre. El Temp todavía
     # no es el optimizado: su título va en rojo.
-    # La Comb V2.1 ("Fat Short U-Net Comb V2.2" en el .npz) no se
+    # La Comb V2.1 ("Ext U-Net Comb V2.1" en el .npz) no se
     # muestra: no se compara con los modelos optimizados.
     orden = [
         "Bob",
-        "Fat Short U-Net FACL (Optimized)",
-        "Memo Fat Short U-Net FACL",
+        "Ext Clip U-Net FACL (Optimized)",
+        "Temp Ext Clip U-Net FACL",
     ]
     etiqueta = {
         "Bob": "Bob",
-        "Fat Short U-Net Comb V2.2":
+        "Ext U-Net Comb V2.1":
             "Ext Clip\nU-Net Comb V2.1",
-        "Fat Short U-Net FACL (Optimized)":
+        "Ext Clip U-Net FACL (Optimized)":
             "Ext Clip\nU-Net FACL",
-        "Memo Fat Short U-Net FACL":
+        "Temp Ext Clip U-Net FACL":
             "Temp Ext Clip\nU-Net FACL",
     }
     rojo = "#c00000"

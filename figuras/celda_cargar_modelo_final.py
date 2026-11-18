@@ -22,7 +22,7 @@ BATCH_VAL_B = 16     # lote de validación de la Etapa B oficial (el MAE
 
 # Hiperparámetros del ensayo: se leen del estudio (no se copian a mano)
 est = optuna.load_study(
-    study_name="etapa_B_Memo_Fat_Short_Unet_FACL_oficial",
+    study_name="etapa_B_Temp_Ext_Clip_U-Net_FACL_oficial",
     storage=JournalStorage(
         JournalFileBackend("../estudios/optuna_etapa_B_oficial.log")))
 t = next(x for x in est.trials if x.number == TRIAL)

@@ -33,7 +33,7 @@ KERNEL_SIZES   = [5, 5, 3]
 DROPOUT_PS     = [0.03, 0.08, 0.26]
 
 # --- Dónde está el estudio de Etapa B (mismos defaults que estado_B.py) ---
-STUDY       = os.environ.get("STUDY_NAME", "etapa_B_Fat_Short_Unet_FACL")
+STUDY       = os.environ.get("STUDY_NAME", "etapa_B_Ext_Clip_U-Net_FACL")
 JOURNAL     = os.environ.get("JOURNAL", "estudios/optuna_etapa_B.log")
 NUM_WORKERS = int(os.environ.get("NUM_WORKERS", 0))     # 0 = como en train_best_f128.py
 

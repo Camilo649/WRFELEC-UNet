@@ -8,7 +8,7 @@ Uso (desde la carpeta de la monografía):
 Dibuja la arquitectura del modelo final (9 canales de entrada,
 3 niveles, 32 filtros base, kernels 5, 5 y 5; ensayo 100) con las
 variables de un instante real de validación
-(figuras/datos/memo_trial100_instante.npz, 14/12/2018, 01:00 UTC)
+(figuras/datos/temp_trial100_instante.npz, 14/12/2018, 01:00 UTC)
 y la estimación del modelo; superpone
 los límites provinciales (datos/limites_provincias.npz).
 """
@@ -22,7 +22,7 @@ import unet_diagram as ud  # noqa: E402
 from generar_figuras_instante import (  # noqa: E402
     SEQ, SEQ_FRIO, SEQ_RAYOS, DIV)
 
-D = np.load(os.path.join(HERE, "datos", "memo_trial100_instante.npz"))
+D = np.load(os.path.join(HERE, "datos", "temp_trial100_instante.npz"))
 LIM = np.load(os.path.join(HERE, "datos", "limites_provincias.npz"))
 
 # Los límites provinciales ya están en píxeles de la grilla: se los

@@ -23,10 +23,10 @@ os.makedirs(os.path.dirname(LOG) or ".", exist_ok=True)
 
 if ETAPA == "A":
     sampler = optuna.samplers.TPESampler(n_startup_trials=N_STARTUP, multivariate=False, seed=SEED)
-    pruner = optuna.pruners.MedianPruner(n_startup_trials=N_STARTUP, n_warmup_steps=15)  # V2: 7; la pérdida de la V2.2 es volátil y se podaban demasiados (bitácora: 15)
+    pruner = optuna.pruners.MedianPruner(n_startup_trials=N_STARTUP, n_warmup_steps=15)  # V2: 7; la pérdida de la V2.1 es volátil y se podaban demasiados (bitácora: 15)
 else:
     sampler = optuna.samplers.TPESampler(n_startup_trials=N_STARTUP, multivariate=True, constant_liar=True, seed=SEED)
-    pruner = optuna.pruners.MedianPruner(n_startup_trials=N_STARTUP, n_warmup_steps=25)  # como la Etapa B de la V2.2
+    pruner = optuna.pruners.MedianPruner(n_startup_trials=N_STARTUP, n_warmup_steps=25)  # como la Etapa B de la V2.1
 
 warnings.filterwarnings("ignore", category=optuna.exceptions.ExperimentalWarning)
 

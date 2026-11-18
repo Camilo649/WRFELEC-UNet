@@ -27,7 +27,7 @@
 # desde la que corrés (o cambiá RUTA_NPZ). Si se corta, volvé a
 # correrla: sigue desde la última época completa.
 #
-# Salidas: ../modelos/etapa_B_Fat_Short_Unet_FACL/
+# Salidas: ../modelos/etapa_B_Ext_Clip_U-Net_FACL/
 #              B_trial0039_repro_epoca8.pth
 #          resultados_validacion_epoca8.npz   <- mandame este
 # =====================================================================
@@ -40,7 +40,7 @@ TRIAL_ARQ, TRIAL_ENT = 106, 39
 BATCH_VAL = 16
 EPOCA_FINAL = 8      # se entrena con el cronograma de 140 épocas
 SALIDA = f'../estudios/trial{TRIAL_ENT:04d}_hasta_epoca8.json'
-CKPT = (f'../modelos/etapa_B_Fat_Short_Unet_FACL/'
+CKPT = (f'../modelos/etapa_B_Ext_Clip_U-Net_FACL/'
         f'B_trial{TRIAL_ENT:04d}_repro_epoca8.pth')
 
 
@@ -56,8 +56,8 @@ def buscar_estudio(patron):
 
 
 print('Estudios encontrados:')
-est_arq = buscar_estudio('optuna_arquitectura_*Fat Short Unet FACL*.db')
-est_ent = buscar_estudio('optuna_entrenamiento_*Fat Short Unet FACL*.db')
+est_arq = buscar_estudio('optuna_arquitectura_*Ext Clip U-Net FACL*.db')
+est_ent = buscar_estudio('optuna_entrenamiento_*Ext Clip U-Net FACL*.db')
 pa = est_arq.trials[TRIAL_ARQ].params
 pe = est_ent.trials[TRIAL_ENT].params
 n_niv = pa['n_niveles']

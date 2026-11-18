@@ -28,8 +28,8 @@ import time
 import numpy as np
 import torch
 
-RUTA_EXT_MEJOR = ("../modelos/etapa_B_Fat_Short_Unet_FACL/"
-                  "B_trial0039_Fat Short Unet FACL.pth")
+RUTA_EXT_MEJOR = ("../modelos/etapa_B_Ext_Clip_U-Net_FACL/"
+                  "B_trial0039_Ext Clip U-Net FACL.pth")
 ARQ_EXT = dict(n_niveles=3, n_filtros_base=64,
                kernel_sizes=[5, 5, 3], dropout_ps=[0.03, 0.08, 0.26])
 DIR_EXT = "../dataset"

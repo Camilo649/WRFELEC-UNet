@@ -15,7 +15,7 @@
 #   - la Ext Clip U-Net FACL con los pesos de su última época (la
 #     140) del ensayo 39 reproducido con
 #     `celda_curvas_fal_fcl_trial39.py` (clave `modelo` del
-#     checkpoint ../modelos/etapa_B_Fat_Short_Unet_FACL/
+#     checkpoint ../modelos/etapa_B_Ext_Clip_U-Net_FACL/
 #     B_trial0039_repro_curvas.pth),
 #   - la Ext U-Net Comb V2.1 con los pesos de su mejor época
 #     (para rehacer la figura de comparación),
@@ -38,14 +38,14 @@ import torch.nn as nn
 from tqdm.auto import tqdm
 
 # --- 1) Rutas ---------------------------------------------------------
-RUTA_EXT = ("../modelos/etapa_B_Fat_Short_Unet_FACL/"
+RUTA_EXT = ("../modelos/etapa_B_Ext_Clip_U-Net_FACL/"
             "B_trial0039_repro_curvas.pth")
 # Arquitectura del ensayo 106 (el dropout no influye al evaluar)
 ARQ_EXT = dict(n_niveles=3, n_filtros_base=64,
                kernel_sizes=[5, 5, 3],
                dropout_ps=[0.024461173266027245, 0.07965792664013316,
                            0.27383264907951727])
-RUTA_COMB = "../modelos/20260924_0326_Fat Short Unet Comb V2.2.pth"
+RUTA_COMB = "../modelos/20260924_0326_Ext U-Net Comb V2.1.pth"
 ARQ_COMB = dict(n_niveles=3, n_filtros_base=64,
                 kernel_sizes=[5, 3, 3], dropout_ps=None)
 DIR_EXT = "../dataset"           # conjunto extendido, 3 canales

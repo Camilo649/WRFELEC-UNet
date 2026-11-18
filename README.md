@@ -75,18 +75,25 @@ Las cuatro tormentas animadas son las de los días 14/12/2018, 29/01/2019,
 
 ### Equivalencias con los nombres internos
 
-Durante el desarrollo los modelos tenían otros nombres, que quedaron en
-algunas rutas de archivos, nombres de estudios de Optuna y claves de los
-`.npz` que leen los scripts de `figuras/` (cambiarlos rompería la lectura de
-los archivos y estudios originales). Los rótulos, comentarios y nombres de
-notebooks siguen la nomenclatura de la tesis.
+Durante el desarrollo los modelos tenían otros nombres. El código del
+repositorio usa los de la tesis, incluidos los nombres de los archivos de
+modelos (`NOMBRE_MODELO`), de los estudios de Optuna y de las carpetas de
+resultados. Los archivos generados antes del cambio conservan el nombre
+original y hay que renombrarlos para que los lean las celdas de carga:
 
 | Nombre en la tesis | Nombre interno |
 |---|---|
-| Ext Clip U-Net FACL | *Fat Short Unet FACL* |
-| Temp Ext Clip U-Net FACL | *Memo Fat Short Unet FACL* |
-| Ext U-Net Comb V2.1 | *Fat Short Unet Comb V2.2* (V2.2 en la numeración interna) |
+| Ext Clip U-Net FACL | `Fat Short Unet FACL` (`etapa_B_Fat_Short_Unet_FACL`) |
+| Temp Ext Clip U-Net FACL | `Memo Fat Short Unet FACL` (`etapa_B_Memo_Fat_Short_Unet_FACL`) |
+| Ext U-Net Comb V2.1 | `Fat Short Unet Comb V2.2` |
+| U-Net Comb V2 | `unet Comb V2.2` |
+| U-Net Comb V1.1, U-Net Comb V2 AvgPool | `unet Comb V1.1`, `unet Comb V2 avgPool` |
 | *Ext*, *Clip*, *Temp* | *Fat*, *Short*, *Memo* |
+
+Los estudios de Optuna (`.db` y journals) guardan su nombre adentro, así que
+para leer los originales hay que pasar el nombre viejo (variable de entorno
+`STUDY_NAME` en los `worker_*.py` y `train_*.py`; en `top_trials_*.py` y en
+`celda_cargar_modelo_final.py`, editando la cadena).
 
 Los notebooks se ejecutaron en el JupyterHub del CCAD. Los dos últimos
 modelos (Ext Clip U-Net FACL y Temp Ext Clip U-Net FACL) se entrenaron y

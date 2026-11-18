@@ -18,7 +18,7 @@ from modelo import UNet_WRF, FACL
 from datos import train_dataset, val_dataset, DATASET_DIR
 
 SEED = 42
-NOMBRE_MODELO = 'Memo Fat Short Unet FACL'
+NOMBRE_MODELO = 'Temp Ext Clip U-Net FACL'
 device = torch.device("xpu")
 
 # ==========================================

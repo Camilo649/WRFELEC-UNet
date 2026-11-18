@@ -21,7 +21,7 @@ import numpy as np
 import torch
 from tqdm.auto import tqdm
 
-CKPT = ('../modelos/etapa_B_Fat_Short_Unet_FACL/'
+CKPT = ('../modelos/etapa_B_Ext_Clip_U-Net_FACL/'
         'B_trial0039_repro_curvas.pth')
 DIR_EXT = '../dataset'            # conjunto extendido, 3 canales
 LOTE, TAM = 16, 297

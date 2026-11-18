@@ -31,7 +31,7 @@ import torch.nn as nn
 from tqdm.auto import tqdm
 
 # --- 1) Modelos -------------------------------------------------------
-ARQ_FAT = dict(n_niveles=3, n_filtros_base=64,
+ARQ_EXT = dict(n_niveles=3, n_filtros_base=64,
                kernel_sizes=[5, 3, 3], dropout_ps=None)
 # Arquitectura del ensayo 106 (el dropout no influye al evaluar)
 ARQ_OPT = dict(n_niveles=3, n_filtros_base=64,
@@ -41,22 +41,22 @@ MODELOS = [
     # nombre en la figura, checkpoint, carpeta del dataset,
     # ¿lleva sigmoide a la salida?, arquitectura si el checkpoint
     # no la trae (None: la lee de ckpt['arquitectura'])
-    dict(nombre="Fat Short U-Net Comb V2.2",
-         ruta="../modelos/20260924_0326_Fat Short Unet Comb V2.2.pth",
-         dir="../dataset", sigmoide=False, arq=ARQ_FAT),
-    dict(nombre="Fat Short U-Net FACL",
-         ruta="../modelos/20260929_0332_Fat Short Unet FACL.pth",
-         dir="../dataset", sigmoide=True, arq=ARQ_FAT),
-    dict(nombre="Fat Short U-Net FACL (Optimized)",
-         ruta="../modelos/etapa_B_Fat_Short_Unet_FACL/"
-              "B_trial0039_Fat Short Unet FACL.pth",
+    dict(nombre="Ext U-Net Comb V2.1",
+         ruta="../modelos/20260924_0326_Ext U-Net Comb V2.1.pth",
+         dir="../dataset", sigmoide=False, arq=ARQ_EXT),
+    dict(nombre="Ext Clip U-Net FACL (sin optimizar)",
+         ruta="../modelos/20260929_0332_Ext Clip U-Net FACL.pth",
+         dir="../dataset", sigmoide=True, arq=ARQ_EXT),
+    dict(nombre="Ext Clip U-Net FACL (Optimized)",
+         ruta="../modelos/etapa_B_Ext_Clip_U-Net_FACL/"
+              "B_trial0039_Ext Clip U-Net FACL.pth",
          dir="../dataset", sigmoide=True, arq=ARQ_OPT),
-    dict(nombre="Memo Fat Short U-Net FACL",
+    dict(nombre="Temp Ext Clip U-Net FACL",
          ruta="../modelos/etapa_temporal_FACL/checkpoints/"
               "temporal_1545855_best.pth",
          dir="../dataset_temporal", sigmoide=True, arq=None),
-    # Cuando exista el Memo optimizado, agregarlo acá:
-    # dict(nombre="Memo Fat Short U-Net FACL (Optimized)", ...),
+    # Cuando exista el Temp optimizado, agregarlo acá:
+    # dict(nombre="Temp Ext Clip U-Net FACL (Optimized)", ...),
 ]
 
 INSTANTE = None          # None, un nombre de archivo o un índice

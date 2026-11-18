@@ -11,7 +11,7 @@
 # mismas 2.271 muestras, en el mismo orden.
 #
 # Qué hace: corre sobre la validación el checkpoint
-#   ../modelos/20260929_0332_Fat Short Unet FACL.pth
+#   ../modelos/20260929_0332_Ext Clip U-Net FACL.pth
 # (la Ext Clip U-Net FACL antes de la optimización: 3 niveles, 64
 # filtros base, kernels 5, 3 y 3, es decir, la misma arquitectura que
 # la Ext U-Net Comb V2.1), con los pesos de
@@ -37,7 +37,7 @@ import numpy as np
 import torch
 from tqdm.auto import tqdm
 
-RUTA_CKPT = "../modelos/20260929_0332_Fat Short Unet FACL.pth"
+RUTA_CKPT = "../modelos/20260929_0332_Ext Clip U-Net FACL.pth"
 ARQ = dict(n_niveles=3, n_filtros_base=64, kernel_sizes=[5, 3, 3],
            dropout_ps=None)           # el dropout no influye al evaluar
 DIR_EXT = "../dataset"                # conjunto extendido, 3 canales

@@ -6,9 +6,9 @@ Uso (desde la carpeta de la monografía):
 
 Genera, en img/:
     imp_corrida1.pdf   importancia por permutación, 6 variables
-                       (U-Net Comb V2.2, corrida del 13/08/26)
+                       (U-Net Comb V2, corrida del 13/08/26)
     imp_corrida2.pdf   importancia por permutación, 3 variables
-                       (Fat Short U-Net FACL, corrida del 16/10/26)
+                       (Ext Clip U-Net FACL, corrida del 16/10/26)
     imp_final.pdf      importancia por permutación del modelo final
                        (9 canales); se genera solo cuando se completan
                        los valores de IMP_FINAL más abajo.
@@ -77,7 +77,7 @@ def coma(x, nd):
 # Resultados (media, desvío) de 100 permutaciones por variable.
 # `conservada` indica si la variable pasó al modelo siguiente.
 # ---------------------------------------------------------------
-IMP_CORRIDA1 = {   # U-Net Comb V2.2, 13/08/26 (6 variables)
+IMP_CORRIDA1 = {   # U-Net Comb V2, 13/08/26 (6 variables)
     "HIELO": (22.037173, 2.355857, True),
     "MDBZ": (8.811185, 1.990643, True),
     "CTT": (2.479110, 0.706205, True),
@@ -97,7 +97,7 @@ def en_porcentaje(datos, e0):
             for k, (m, sd, ok) in datos.items()}
 
 
-IMP_CORRIDA2 = {   # Fat Short U-Net FACL, 16/10/26 (3 variables)
+IMP_CORRIDA2 = {   # Ext Clip U-Net FACL, 16/10/26 (3 variables)
     "MDBZ": (0.359318, 0.002838, True),
     "HIELO": (0.091167, 0.000464, True),
     "CTT": (0.008494, 0.000128, True),

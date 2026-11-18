@@ -356,9 +356,9 @@ def actualizar_comparacion():
     modelo, salvo la Ext Clip U-Net FACL, con los de su última
     época). La figura se arma con generar_figuras_modelos.py."""
     i = ARCHIVOS.index(ARCHIVO_COMPARACION)
-    nombres = ["Fat Short U-Net Comb V2.2",
-               "Fat Short U-Net FACL (Optimized)",
-               "Memo Fat Short U-Net FACL"]
+    nombres = ["Ext U-Net Comb V2.1",
+               "Ext Clip U-Net FACL (Optimized)",
+               "Temp Ext Clip U-Net FACL"]
     claves = ["pred_comb_mejor", "pred_ext_ultima", "pred_temp"]
     preds = np.stack([D[k][i].astype("float32") for k in claves])
     real = REAL[i].astype("float32")

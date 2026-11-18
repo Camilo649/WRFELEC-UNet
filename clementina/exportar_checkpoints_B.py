@@ -22,11 +22,11 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--top", type=int, default=5)
 ap.add_argument("--criterio", choices=["value", "val_final", "ambos"], default="ambos")
 ap.add_argument("--trials", type=int, nargs="*", default=None)
-ap.add_argument("--nombre", default="Fat Short Unet FACL", help="NOMBRE_MODELO del notebook")
+ap.add_argument("--nombre", default="Ext Clip U-Net FACL", help="NOMBRE_MODELO del notebook")
 ap.add_argument("--salida", default="export_B")
 args = ap.parse_args()
 
-STUDY = os.environ.get("STUDY_NAME", "etapa_B_Fat_Short_Unet_FACL")
+STUDY = os.environ.get("STUDY_NAME", "etapa_B_Ext_Clip_U-Net_FACL")
 LOG   = os.environ.get("JOURNAL", "estudios/optuna_etapa_B.log")
 DIR_B = os.environ.get("DIR_B", os.path.expanduser("~/lightning/etapa_B"))
 

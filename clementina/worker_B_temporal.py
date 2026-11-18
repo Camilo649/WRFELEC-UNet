@@ -35,7 +35,7 @@ def main(worker_id):
                                      device, LR_RANGO, ALPHA_RANGO, EPOCAS_OPCIONES, BATCH_OPCIONES)
 
     JOB       = int(os.environ.get("JOB_INDEX", 0))
-    STUDY     = os.environ.get("STUDY_NAME", "etapa_B_Memo_Fat_Short_Unet_FACL")
+    STUDY     = os.environ.get("STUDY_NAME", "etapa_B_Temp_Ext_Clip_U-Net_FACL")
     LOG       = os.environ.get("JOURNAL", "estudios/optuna_etapa_B_temporal.log")
     TIMEOUT_S = float(os.environ.get("TIMEOUT_S", 46 * 3600))
     try:

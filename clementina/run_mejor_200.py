@@ -28,7 +28,7 @@ EPOCAS = int(os.environ.get("EPOCAS", 200))
 DIR_ID = int(os.environ.get("DIR_ID", TRIAL_BASE))
 JOURNAL_ORIGEN = os.environ.get("JOURNAL_ORIGEN", "estudios/optuna_etapa_B_oficial.log")
 JOURNAL_NUEVO = os.environ.get("JOURNAL_NUEVO", f"estudios/optuna_mejor_oficial_{EPOCAS}ep_id{DIR_ID}.log")
-ESTUDIO_ORIGEN = "etapa_B_Memo_Fat_Short_Unet_FACL_oficial"
+ESTUDIO_ORIGEN = "etapa_B_Temp_Ext_Clip_U-Net_FACL_oficial"
 ESTUDIO_NUEVO = f"mejor_oficial_t{TRIAL_BASE}_{EPOCAS}ep_id{DIR_ID}"
 # La carpeta se fija ANTES de importar el objetivo (lo lee al importarse)
 os.environ.setdefault("DIR_B", os.path.expanduser(f"~/lightning/etapa_B_oficial_{EPOCAS}"))
