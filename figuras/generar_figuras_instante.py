@@ -283,6 +283,15 @@ def fig_limitacion_cnn():
         ax.plot(*P[::-1], marker="o", ms=2.6, mfc=INK, mec="white",
                 mew=0.5, zorder=7)
 
+    # valor de LIGHTDENS en el pixel marcado, anotado sobre (b)
+    ax_y.annotate("%d" % y[P], xy=P[::-1], xytext=(-26, -22),
+                  textcoords="offset points", fontsize=7.5,
+                  color=INK, ha="center", va="center", zorder=9,
+                  bbox=dict(boxstyle="round,pad=0.25", fc="white",
+                            ec=INK, lw=0.5),
+                  arrowprops=dict(arrowstyle="-", color=INK, lw=0.6,
+                                  shrinkA=0, shrinkB=2))
+
     for ax, im, nd in ((ax_h, im_h, 3), (ax_y, im_y, 0)):
         cb = fig.colorbar(im, ax=ax, orientation="horizontal",
                           fraction=0.05, pad=0.04, aspect=22,
