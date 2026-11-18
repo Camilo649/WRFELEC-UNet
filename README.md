@@ -80,6 +80,25 @@ optimizaron en el clúster Clementina con los scripts de `clementina/`
 (trabajos de Slurm); los notebooks `FatShort` y `Memo` documentan su diseño y
 análisis.
 
+## Scripts de Clementina
+
+`clementina/` contiene el código con el que se hicieron las búsquedas de
+hiperparámetros (Optuna, etapas A y B) y los entrenamientos finales en el clúster
+Clementina (GPU Intel Data Center Max, entorno `torch_xpu`, trabajos de Slurm):
+`datos.py`, `modelo.py`, las funciones de pérdida (`facl_oficial.py`,
+`perdida_comb.py`), `objetivo_*.py`, `worker_*.py`, `train_*.py` y los
+`sbatch_*.sh`. Los sufijos `_oficial` y `_temporal` indican la FACL de Yan et al.
+con el MAE normalizado como criterio de validación y el conjunto temporal,
+respectivamente.
+
+## Pesos
+
+`pesos/ext_clip_u-net_facl_trial39.pth`: checkpoint de la Ext Clip U-Net FACL
+(trial 39, 9.555.457 parámetros, 140 épocas). Contiene `model_state_dict`
+(última época, la evaluada en la tesis), `best_model_state_dict` (mejor época
+según la pérdida de validación) y el historial de entrenamiento. Se carga con
+`torch.load(..., weights_only=True)` y la arquitectura de `clementina/modelo.py`.
+
 ## Datos
 
 El conjunto de datos (salidas de las simulaciones WRF y WRF-ELEC, 23 días de
@@ -89,8 +108,9 @@ describe en `notebooks/Datasets.ipynb` y en el Capítulo 4 de la tesis.
 
 ## Reproducibilidad
 
-- Entorno: Python 3.12, PyTorch 2.6.0 con CUDA 12.4 (`requirements.txt`; las versiones
-  de algunas librerías todavía no están fijadas).
+- Notebooks: Python 3.12, PyTorch 2.6.0 con CUDA 12.4 (`requirements.txt`; las versiones
+  de algunas librerías todavía no están fijadas). Scripts de Clementina: entorno
+  `torch_xpu` (PyTorch para GPU Intel).
 - Los notebooks conservan rutas de la máquina donde se entrenaron
   (`/home/gcamilo/...`, `drive/MyDrive/...`): hay que ajustarlas.
 - Los notebooks esperan la estructura `../dataset`, `../modelos`, `../estudios`, etc.

@@ -6,14 +6,15 @@ cartopy==0.26.0
 metpy==1.7.1
 wrf-python==1.4.2
 
-# Sin versión fijada todavía (completar con `pip freeze`):
+optuna==4.9.0
+scikit-image==0.26.0
+torchinfo==1.8.0
+
+# Sin versión fijada todavía:
 numpy
 scipy
 pandas
 seaborn
-scikit-image
-torchinfo
-optuna
 netCDF4
 xarray
 tqdm
