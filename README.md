@@ -99,6 +99,14 @@ respectivamente.
 según la pérdida de validación) y el historial de entrenamiento. Se carga con
 `torch.load(..., weights_only=True)` y la arquitectura de `clementina/modelo.py`.
 
+`pesos/temp_ext_clip_u-net_facl_best_epoca47.pt`, `..._last_epoca60.pt` y
+`..._curva.csv`: Temp Ext Clip U-Net FACL (ensayo 100 de la búsqueda
+`etapa_B_oficial`, 5.410.241 parámetros). `best` es la época 47 (la evaluada
+en la tesis, MAE normalizado de validación 0,00587) y `last`, la 60. Cada `.pt`
+guarda `modelo` (pesos) y las métricas de validación de esa época; se carga con
+`torch.load(..., weights_only=True)`. La arquitectura se reconstruye con
+`clementina/modelo.py` y los hiperparámetros del ensayo 100.
+
 ## Datos
 
 El conjunto de datos (salidas de las simulaciones WRF y WRF-ELEC, 23 días de
