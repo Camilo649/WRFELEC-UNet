@@ -43,7 +43,6 @@ hiperparámetros.
 ## Contenido
 
 ```
-herramientas/ renombrar_nombres_viejos.py (nombres internos -> nombres de la tesis)
 modulos/     tormentaDataset.py (Dataset de PyTorch usado por los notebooks)
 notebooks/   Datasets, entrenamientos y optimizaciones (sin outputs)
 figuras/     Scripts que generan las figuras y tablas de la tesis
@@ -73,34 +72,6 @@ Las cuatro tormentas animadas son las de los días 14/12/2018, 29/01/2019,
 | `Entrenamiento_Temp_Ext_Clip_U-Net_FACL` | Temp Ext Clip U-Net FACL (último modelo) |
 | `Graficas` | Figuras de la tesis |
 | `auxiliares/` | Preliminares (`modelos_preliminares`, en Keras), exploración de un `wrfout`, validación de las simulaciones nuevas y lectura de los estudios de Optuna |
-
-### Equivalencias con los nombres internos
-
-Durante el desarrollo los modelos tenían otros nombres. El código del
-repositorio usa los de la tesis, incluidos los nombres de los archivos de
-modelos (`NOMBRE_MODELO`), de los estudios de Optuna y de las carpetas de
-resultados. Los archivos generados antes del cambio conservan el nombre
-original y hay que renombrarlos para que los lean las celdas de carga:
-
-| Nombre en la tesis | Nombre interno |
-|---|---|
-| Ext Clip U-Net FACL | `Fat Short Unet FACL` (`etapa_B_Fat_Short_Unet_FACL`) |
-| Temp Ext Clip U-Net FACL | `Memo Fat Short Unet FACL` (`etapa_B_Memo_Fat_Short_Unet_FACL`) |
-| Ext U-Net Comb V2.1 | `Fat Short Unet Comb V2.2` |
-| U-Net Comb V2 | `unet Comb V2.2` |
-| U-Net Comb V1.1, U-Net Comb V2 AvgPool | `unet Comb V1.1`, `unet Comb V2 avgPool` |
-| *Ext*, *Clip*, *Temp* | *Fat*, *Short*, *Memo* |
-
-Para pasar esos archivos a los nombres de la tesis, en cada máquina (JupyterHub,
-Clementina) se corre `herramientas/renombrar_nombres_viejos.py`, que renombra
-checkpoints, historiales y carpetas, y actualiza el nombre del estudio dentro
-de los `.db` y journals de Optuna (deja copias `.bak`). Sin `--aplicar` solo
-muestra lo que haría:
-
-```
-python3 herramientas/renombrar_nombres_viejos.py ../modelos ../estudios
-python3 herramientas/renombrar_nombres_viejos.py ../modelos ../estudios --aplicar
-```
 
 Los notebooks se ejecutaron en el JupyterHub del CCAD. Los dos últimos
 modelos (Ext Clip U-Net FACL y Temp Ext Clip U-Net FACL) se entrenaron y
