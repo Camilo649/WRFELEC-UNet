@@ -107,6 +107,31 @@ guarda `modelo` (pesos) y las métricas de validación de esa época; se carga c
 `torch.load(..., weights_only=True)`. La arquitectura se reconstruye con
 `clementina/modelo.py` y los hiperparámetros del ensayo 100.
 
+## Hiperparámetros de los dos últimos modelos
+
+| | Ext Clip U-Net FACL | Temp Ext Clip U-Net FACL |
+|---|---|---|
+| Ensayo de la etapa A (arquitectura) | 106 | 118 |
+| Niveles / filtros | 3 / 64, 128, 256 | 3 / 32, 64, 128 |
+| Tamaños de kernel | 5, 5, 3 | 5, 5, 5 |
+| Ensayo de la etapa B (entrenamiento) | 39 | 100 |
+| Tasa de aprendizaje inicial | 1,22·10⁻⁴ | 5,99·10⁻⁴ (0,000599407) |
+| Tamaño de lote | 8 | 8 |
+| α (FACL) | 0,189 | 0,229 (0,229207) |
+| Épocas | 140 | 60 |
+| Criterio de validación | L_val = ½FAL + ½FCL | MAE normalizado |
+| Época evaluada | 140 | 47 |
+
+El ensayo 100 de la búsqueda `etapa_B_oficial` terminó con pérdida de
+validación 0,005871 (época 47), 5.410.241 parámetros y 67.500 pasos de
+entrenamiento.
+
+Nota sobre la Ext Clip U-Net FACL: `pesos/ext_clip_u-net_facl_trial39.pth` es el
+entrenamiento original del ensayo 39 en Clementina (mejor época según L_val:
+la 5). Las curvas de FAL y FCL y las estimaciones de la tesis provienen de un
+reentrenamiento con las mismas semillas e hiperparámetros (mejor época: la 8),
+cuyos pesos no se conservaron.
+
 ## Datos
 
 El conjunto de datos (salidas de las simulaciones WRF y WRF-ELEC, 23 días de
