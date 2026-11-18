@@ -64,20 +64,34 @@ Las cuatro tormentas animadas son las de los días 14/12/2018, 29/01/2019,
 |---|---|
 | `Datasets` | Análisis, filtrado y construcción de los datasets (Fases 1 a 5, incluido el temporal) |
 | `Pruebas` | Bob, Baseline, U-Net y variantes con MSE/WMSE (conjunto inicial) |
-| `Entrenamiento_unetCombv1`, `Entrenamiento_unetCombv2`, `Entrenamiento_unetCombv2AveragePool` | U-Nets con pérdida híbrida Comb, incluida la prueba con *average pooling* |
-| `Entrenamiento_Fer-Net` | Esquemas de ponderación asimétrica de la FACL (Fer-Net, Net-Fer) |
-| `Entrenamiento_FatShortUnetFACL` | Ext Clip U-Net FACL: entrenamiento, importancia de variables y optimización |
-| `Entrenamiento_MemoFatShortUnetFACL` | Temp Ext Clip U-Net FACL (último modelo) |
+| `Entrenamiento_U-Net_Comb_V1` | U-Net Comb V1 y V1.1 (pérdida híbrida, conjunto inicial) |
+| `Entrenamiento_U-Net_Comb_V2_AvgPool` | U-Net Comb V2 con la prueba de *average pooling* |
+| `Entrenamiento_U-Net_Fer-Net` | Esquemas de ponderación asimétrica de la FACL (Fer-Net, Net-Fer) |
+| `Entrenamiento_Ext_U-Net_Comb_V2.1` | Ext U-Net Comb V2.1: entrenamiento, importancia de variables y optimización |
+| `Entrenamiento_Ext_Clip_U-Net_FACL` | Ext Clip U-Net FACL: entrenamiento, importancia de variables y optimización |
+| `Entrenamiento_Temp_Ext_Clip_U-Net_FACL` | Temp Ext Clip U-Net FACL (último modelo) |
 | `Graficas` | Figuras de la tesis |
 | `auxiliares/` | Preliminares (`modelos_preliminares`, en Keras), exploración de un `wrfout`, validación de las simulaciones nuevas y lectura de los estudios de Optuna |
 
-Los nombres de los notebooks conservan la nomenclatura interna del
-desarrollo (*FatShort* = Ext Clip, *Memo* = Temp).
+### Equivalencias con los nombres internos
+
+Durante el desarrollo los modelos tenían otros nombres, que quedaron en
+algunas rutas de archivos, nombres de estudios de Optuna y claves de los
+`.npz` que leen los scripts de `figuras/` (cambiarlos rompería la lectura de
+los archivos y estudios originales). Los rótulos, comentarios y nombres de
+notebooks siguen la nomenclatura de la tesis.
+
+| Nombre en la tesis | Nombre interno |
+|---|---|
+| Ext Clip U-Net FACL | *Fat Short Unet FACL* |
+| Temp Ext Clip U-Net FACL | *Memo Fat Short Unet FACL* |
+| Ext U-Net Comb V2.1 | *Fat Short Unet Comb V2.2* (V2.2 en la numeración interna) |
+| *Ext*, *Clip*, *Temp* | *Fat*, *Short*, *Memo* |
 
 Los notebooks se ejecutaron en el JupyterHub del CCAD. Los dos últimos
 modelos (Ext Clip U-Net FACL y Temp Ext Clip U-Net FACL) se entrenaron y
 optimizaron en el clúster Clementina con los scripts de `clementina/`
-(trabajos de Slurm); los notebooks `FatShort` y `Memo` documentan su diseño y
+(trabajos de Slurm); los notebooks `Ext_Clip` y `Temp_Ext_Clip` documentan su diseño y
 análisis.
 
 ## Scripts de Clementina

@@ -9,7 +9,7 @@
 #SBATCH --exclude=cn045,cn072,cn021,cn033
 #SBATCH --output=logs/optuna_A_comb_%j.log
 
-# Etapa A (Fase 1, arquitectura) de la Ext Clip U-Net Comb V2.1, con el protocolo de la Fase 1 de la Comb V2 (ajustado, ver objetivo_comb.py): 46 h, 8 tiles.
+# Etapa A (Fase 1, arquitectura) de la Ext U-Net Comb V2.1, con el protocolo de la Fase 1 de la Comb V2 (ajustado, ver objetivo_comb.py): 46 h, 8 tiles.
 # Uso: sbatch sbatch_etapa_A_comb.sh      (o todo junto con lanzar_comb.sh)
 
 source ~/anaconda3/etc/profile.d/conda.sh

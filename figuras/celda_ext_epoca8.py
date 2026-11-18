@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # =====================================================================
-# CELDA PARA Entrenamiento_FatShortUnetFACL.ipynb  (se puede correr
+# CELDA PARA Entrenamiento_Ext_Clip_U-Net_FACL.ipynb  (se puede correr
 # en el JupyterHub de Serafín o en Clementina; hace falta una GPU)
 #
 # Qué hace: obtiene los pesos de la Ext Clip U-Net FACL en su "mejor
@@ -14,7 +14,7 @@
 #            cronograma de las 140 (T_max, FACL y probabilidad de
 #            usar la FCL), y guarda los pesos de la época 8.
 #            En Clementina dura ~1 h 10 min (8 épocas de ~8,3 min);
-#            en el JupyterHub tardará más (la Ext Clip U-Net Comb
+#            en el JupyterHub tardará más (la Ext U-Net Comb
 #            V2.1, de 8 millones de parámetros, tardó ~25 min por
 #            época ahí), así que contá con unas 3 o 4 horas.
 #   PARTE 2: estima con ese modelo las 2.271 muestras de validación y

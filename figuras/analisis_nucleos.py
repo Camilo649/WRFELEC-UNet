@@ -51,7 +51,7 @@ TIEMPOS = [dt.datetime.strptime(a[11:30], "%Y-%m-%d_%H-%M-%S")
            for a in ARCHIVOS]
 REAL = D["y_real"]
 MODELOS = {
-    "pred_comb_mejor": "Ext Clip U-Net Comb V2.1",
+    "pred_comb_mejor": "Ext U-Net Comb V2.1",
     "pred_ext_ultima": "Ext Clip U-Net FACL (época 140)",
     "pred_temp": "Temp Ext Clip U-Net FACL",
 }

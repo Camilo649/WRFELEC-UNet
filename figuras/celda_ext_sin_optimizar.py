@@ -4,7 +4,7 @@
 # (para justificar en el Cap. 6 por qué no se optimizó la Comb V2.1)
 #
 # Dónde pegarla: en la misma notebook donde corriste
-# celda_resultados_validacion.py (Entrenamiento_MemoFatShortUnetFACL),
+# celda_resultados_validacion.py (Entrenamiento_Temp_Ext_Clip_U-Net_FACL),
 # en cualquier lugar después de esa celda. Usa `UNet_WRF`,
 # `TormentaDataset` y `device`, que ya están en la notebook, y lee
 # resultados_validacion.npz (el que generó esa celda) para usar las
@@ -14,7 +14,7 @@
 #   ../modelos/20260929_0332_Fat Short Unet FACL.pth
 # (la Ext Clip U-Net FACL antes de la optimización: 3 niveles, 64
 # filtros base, kernels 5, 3 y 3, es decir, la misma arquitectura que
-# la Ext Clip U-Net Comb V2.1), con los pesos de
+# la Ext U-Net Comb V2.1), con los pesos de
 #   - su mejor época (best_model_state_dict, la 5 según el
 #     checkpoint), y
 #   - su última época (model_state_dict, la 25),

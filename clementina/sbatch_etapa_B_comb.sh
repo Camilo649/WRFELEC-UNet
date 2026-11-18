@@ -9,7 +9,7 @@
 #SBATCH --exclude=cn045,cn072,cn021,cn033
 #SBATCH --output=logs/optuna_B_comb_%j.log
 
-# Etapa B (Fase 2, entrenamiento) de la Ext Clip U-Net Comb V2.1. Lee la arquitectura de la Etapa A (arq_desde_A.py).
+# Etapa B (Fase 2, entrenamiento) de la Ext U-Net Comb V2.1. Lee la arquitectura de la Etapa A (arq_desde_A.py).
 # Se lanza con lanzar_comb.sh (dependencia de la Etapa A) o a mano:
 #   sbatch --export=ALL,JOB_INDEX=0 sbatch_etapa_B_comb.sh ; sbatch --export=ALL,JOB_INDEX=1 sbatch_etapa_B_comb.sh
 

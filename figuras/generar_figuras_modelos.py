@@ -8,7 +8,7 @@ Uso (desde la carpeta de la monografía):
 Genera en img/:
     comparacion_reconstrucciones.pdf  un mismo instante estimado por
                                     los dos últimos modelos (la
-                                    Ext Clip U-Net Comb V2.1 está
+                                    Ext U-Net Comb V2.1 está
                                     en el .npz, pero no se dibuja:
                                     no está optimizada para el
                                     conjunto extendido)

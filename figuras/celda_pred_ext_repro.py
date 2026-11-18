@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # =====================================================================
-# CELDA PARA Entrenamiento_FatShortUnetFACL.ipynb
+# CELDA PARA Entrenamiento_Ext_Clip_U-Net_FACL.ipynb
 #
 # Qué hace: estima las 2.271 muestras de validación con la Ext Clip
 # U-Net FACL con los pesos de la última época (la 140) del ensayo 39

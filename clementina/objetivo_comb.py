@@ -1,4 +1,4 @@
-"""Optimización de la Ext Clip U-Net Comb V2.1 en dos fases, con el protocolo de las optimizaciones anteriores de la Comb
+"""Optimización de la Ext U-Net Comb V2.1 en dos fases, con el protocolo de las optimizaciones anteriores de la Comb
 (Tablas 5.3 y 5.4 de la monografía y bitácora) y los ajustes que justifican las propias corridas de la V2.2 (BITACORA).
 
   ETAPA=A (Fase 1, arquitectura): 3 niveles FIJOS (reunión del 05/10); filtros del primer nivel 16/32/64; kernel de cada

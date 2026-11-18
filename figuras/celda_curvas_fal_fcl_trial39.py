@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # =====================================================================
-# CELDA PARA Entrenamiento_FatShortUnetFACL.ipynb
+# CELDA PARA Entrenamiento_Ext_Clip_U-Net_FACL.ipynb
 #
 # Qué hace: vuelve a entrenar el ensayo 39 de la Fase 2 (la Ext Clip
 # U-Net FACL) exactamente como lo hizo `objective_entrenamiento`

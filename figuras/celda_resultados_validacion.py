@@ -3,7 +3,7 @@
 # CELDA 1 DE RESULTADOS (Capítulo 6) — exporta las estimaciones de
 # todo el conjunto de validación.
 #
-# Dónde pegarla: AL FINAL de Entrenamiento_MemoFatShortUnetFACL.ipynb,
+# Dónde pegarla: AL FINAL de Entrenamiento_Temp_Ext_Clip_U-Net_FACL.ipynb,
 # después de la celda "CHECKPOINT DE LA ETAPA B OFICIAL — ensayo 100,
 # mejor época (best.pt)", que deja armados `modelo` (el modelo final,
 # en .eval()) y `val_dataset` (../dataset_temporal/val, 9 canales).
@@ -17,7 +17,7 @@
 #     `celda_curvas_fal_fcl_trial39.py` (clave `modelo` del
 #     checkpoint ../modelos/etapa_B_Fat_Short_Unet_FACL/
 #     B_trial0039_repro_curvas.pth),
-#   - la Ext Clip U-Net Comb V2.1 con los pesos de su mejor época
+#   - la Ext U-Net Comb V2.1 con los pesos de su mejor época
 #     (para rehacer la figura de comparación),
 # y guarda el valor simulado y las tres estimaciones
 # (desnormalizadas y redondeadas, como en las métricas) en
@@ -80,7 +80,7 @@ def _cargar(ruta, clave, arq, sigmoide=True):
 
 print("Ext Clip U-Net FACL:", RUTA_EXT)
 ext_ultima = _cargar(RUTA_EXT, "modelo", ARQ_EXT)
-print("Ext Clip U-Net Comb V2.1:", RUTA_COMB)
+print("Ext U-Net Comb V2.1:", RUTA_COMB)
 comb_mejor = _cargar(RUTA_COMB, "best_model_state_dict", ARQ_COMB,
                      sigmoide=False)
 
@@ -132,9 +132,9 @@ salida = dict(archivos=np.array(nombres), y_real=real)
 salida["pred_temp"] = _predecir(modelo, ds_t, idx_t,
                                 "Temp Ext Clip U-Net FACL")
 salida["pred_ext_ultima"] = _predecir(ext_ultima, ds_e, idx_e,
-                                      "Ext Clip FACL (última época)")
+                                      "Ext Clip U-Net FACL (última época)")
 salida["pred_comb_mejor"] = _predecir(comb_mejor, ds_e, idx_e,
-                                      "Ext Clip Comb V2.1 (mejor)")
+                                      "Ext Comb V2.1 (mejor)")
 
 
 # --- 6) Control rápido contra la Tabla 6.1 ----------------------------
@@ -152,7 +152,7 @@ for clave, nombre, esperado in (
         ("pred_temp", "Temp Ext Clip U-Net FACL", "0.659"),
         ("pred_ext_ultima", "Ext Clip U-Net FACL, última época",
          "≈0.659 (pesos viejos)"),
-        ("pred_comb_mejor", "Ext Clip U-Net Comb V2.1, mejor", "-")):
+        ("pred_comb_mejor", "Ext U-Net Comb V2.1, mejor", "-")):
     print(f"  {nombre:36s}: {_csi_medio(real, salida[clave]):.3f}  "
           f"(esperado: {esperado})")
 

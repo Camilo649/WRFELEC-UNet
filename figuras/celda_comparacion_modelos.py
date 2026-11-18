@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # =====================================================================
 # CELDA PARA LA NOTEBOOK (pegar al final de
-# Entrenamiento_MemoFatShortUnetFACL.ipynb, o de cualquier notebook
+# Entrenamiento_Temp_Ext_Clip_U-Net_FACL.ipynb, o de cualquier notebook
 # que ya tenga importados UNet_WRF, TormentaDataset, device, np,
 # torch y tqdm).
 #

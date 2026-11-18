@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # =====================================================================
-# CELDA PARA LA NOTEBOOK Entrenamiento_MemoFatShortUnetFACL.ipynb
+# CELDA PARA LA NOTEBOOK Entrenamiento_Temp_Ext_Clip_U-Net_FACL.ipynb
 # (la de la Temp Ext Clip U-Net FACL, el modelo final).
 #
 # Dónde pegarla: AL FINAL de la notebook, después de la celda

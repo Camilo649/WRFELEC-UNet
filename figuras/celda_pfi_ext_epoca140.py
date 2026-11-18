@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # =====================================================================
-# CELDA PARA Entrenamiento_FatShortUnetFACL.ipynb  (versión 2)
+# CELDA PARA Entrenamiento_Ext_Clip_U-Net_FACL.ipynb  (versión 2)
 #
 # Qué hace: corre la importancia por permutación (100 repeticiones
 # por variable) con los pesos de la última época (la 140) del ensayo

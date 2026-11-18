@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Celda para el final de Entrenamiento_MemoFatShortUnetFACL.ipynb
+# Celda para el final de Entrenamiento_Temp_Ext_Clip_U-Net_FACL.ipynb
 # (necesita `modelo` = ensayo 100, `val_dataset`, `device`).
 # Genera memo_trial100_instante.npz con la predicción del modelo
 # final para el instante de la figura de comparación.

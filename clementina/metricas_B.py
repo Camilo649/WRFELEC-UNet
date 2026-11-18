@@ -1,5 +1,5 @@
 """CSI y FSS de validación por época para la Etapa B, con las MISMAS definiciones que el notebook de resultados
-(Entrenamiento_MemoFatShortUnetFACL.ipynb, celda de funciones), pero acumulando por lotes en el dispositivo:
+(Entrenamiento_Temp_Ext_Clip_U-Net_FACL.ipynb, celda de funciones), pero acumulando por lotes en el dispositivo:
 
   - LIGHTDENS real = round(dataset.desnormalizar_y(.)), igual para el objetivo y para la predicción.
   - CSI (calcular_metricas_timestep + graficar_csi): evento si LIGHTDENS > 0. Por timestep,

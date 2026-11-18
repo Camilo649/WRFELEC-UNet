@@ -2,7 +2,7 @@
 # =====================================================================
 # CELDA 2 DE RESULTADOS (Capítulo 6) — tiempo de inferencia y memoria.
 #
-# Dónde pegarla: AL FINAL de Entrenamiento_MemoFatShortUnetFACL.ipynb,
+# Dónde pegarla: AL FINAL de Entrenamiento_Temp_Ext_Clip_U-Net_FACL.ipynb,
 # después de la celda "CHECKPOINT DE LA ETAPA B OFICIAL — ensayo 100,
 # mejor época (best.pt)" (necesita `modelo`, `val_dataset`,
 # `UNet_WRF`, `TormentaDataset` y `device`). No depende de la celda 1.
