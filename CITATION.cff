@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Si usás este repositorio, por favor citá el Trabajo Especial."
+title: "WRFELEC-UNet"
+type: software
+authors:
+  - family-names: "Gutiérrez"
+    given-names: "Camilo"
+  - family-names: "Luque"
+    given-names: "Melina Yasmín"
+    # directora del trabajo
+repository-code: "https://github.com/Camilo649/WRFELEC-UNet"
+license: MIT
+date-released: "2026-12-14"
+abstract: "U-Nets que estiman la densidad de descargas simulada por WRF-ELEC a partir de variables del modelo WRF, entrenadas con la pérdida FACL."

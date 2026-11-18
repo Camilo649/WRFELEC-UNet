@@ -1,0 +1,16 @@
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+scikit-image
+torch
+torchinfo
+optuna
+netCDF4
+xarray
+wrf-python
+metpy
+cartopy
+tqdm
+jupyter
