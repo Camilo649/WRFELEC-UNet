@@ -43,6 +43,7 @@ hiperparámetros.
 ## Contenido
 
 ```
+herramientas/ renombrar_nombres_viejos.py (nombres internos -> nombres de la tesis)
 modulos/     tormentaDataset.py (Dataset de PyTorch usado por los notebooks)
 notebooks/   Datasets, entrenamientos y optimizaciones (sin outputs)
 figuras/     Scripts que generan las figuras y tablas de la tesis
@@ -90,10 +91,16 @@ original y hay que renombrarlos para que los lean las celdas de carga:
 | U-Net Comb V1.1, U-Net Comb V2 AvgPool | `unet Comb V1.1`, `unet Comb V2 avgPool` |
 | *Ext*, *Clip*, *Temp* | *Fat*, *Short*, *Memo* |
 
-Los estudios de Optuna (`.db` y journals) guardan su nombre adentro, así que
-para leer los originales hay que pasar el nombre viejo (variable de entorno
-`STUDY_NAME` en los `worker_*.py` y `train_*.py`; en `top_trials_*.py` y en
-`celda_cargar_modelo_final.py`, editando la cadena).
+Para pasar esos archivos a los nombres de la tesis, en cada máquina (JupyterHub,
+Clementina) se corre `herramientas/renombrar_nombres_viejos.py`, que renombra
+checkpoints, historiales y carpetas, y actualiza el nombre del estudio dentro
+de los `.db` y journals de Optuna (deja copias `.bak`). Sin `--aplicar` solo
+muestra lo que haría:
+
+```
+python3 herramientas/renombrar_nombres_viejos.py ../modelos ../estudios
+python3 herramientas/renombrar_nombres_viejos.py ../modelos ../estudios --aplicar
+```
 
 Los notebooks se ejecutaron en el JupyterHub del CCAD. Los dos últimos
 modelos (Ext Clip U-Net FACL y Temp Ext Clip U-Net FACL) se entrenaron y
