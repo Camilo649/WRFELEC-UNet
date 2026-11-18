@@ -74,6 +74,12 @@ Las cuatro tormentas animadas son las de los días 14/12/2018, 29/01/2019,
 Los nombres de los notebooks conservan la nomenclatura interna del
 desarrollo (*FatShort* = Ext Clip, *Memo* = Temp).
 
+Los notebooks se ejecutaron en el JupyterHub del CCAD. Los dos últimos
+modelos (Ext Clip U-Net FACL y Temp Ext Clip U-Net FACL) se entrenaron y
+optimizaron en el clúster Clementina con los scripts de `clementina/`
+(trabajos de Slurm); los notebooks `FatShort` y `Memo` documentan su diseño y
+análisis.
+
 ## Datos
 
 El conjunto de datos (salidas de las simulaciones WRF y WRF-ELEC, 23 días de
