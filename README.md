@@ -83,7 +83,8 @@ describe en `notebooks/Datasets.ipynb` y en el Capítulo 4 de la tesis.
 
 ## Reproducibilidad
 
-- Las dependencias están en `requirements.txt` (sin versiones fijas todavía).
+- Entorno: Python 3.12, PyTorch 2.6.0 con CUDA 12.4 (`requirements.txt`; las versiones
+  de algunas librerías todavía no están fijadas).
 - Los notebooks conservan rutas de la máquina donde se entrenaron
   (`/home/gcamilo/...`, `drive/MyDrive/...`): hay que ajustarlas.
 - Los notebooks esperan la estructura `../dataset`, `../modelos`, `../estudios`, etc.
