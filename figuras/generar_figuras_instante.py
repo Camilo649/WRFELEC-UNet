@@ -326,9 +326,7 @@ def fig_limitacion_cnn():
     for lado in ax_w.spines.values():
         lado.set_color(MUTED)
         lado.set_linewidth(0.5)
-    titulo(ax_w, "c", "Entrada que alcanza la red")
-    ax_w.set_xlabel("LIGHTDENS en el píxel marcado: %d" % y[P],
-                    fontsize=7.2, color=INK, labelpad=4)
+    titulo(ax_w, "c", "Entrada (HIELO) que alcanza la red")
     guardar(fig, "limitacion_cnn_base.pdf")
     print("núcleo", nucleo, "píxel", P, "distancia (px)",
           round(dist, 2), "LIGHTDENS", float(y[P]),
