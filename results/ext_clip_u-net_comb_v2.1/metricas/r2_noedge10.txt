@@ -1,0 +1,4 @@
+Model: Ext Clip U-Net Comb V2.1
+Edge crop: 10px
+Active pixels evaluated: 5,701,011
+R²: 0.468083

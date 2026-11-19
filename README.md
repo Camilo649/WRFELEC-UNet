@@ -28,9 +28,13 @@ extendido, *Clip* = `LIGHTDENS` restringido a 150.
 |---|---|---|---|
 | Ext U-Net Comb V2.1 | `results/ext_u-net_comb_v2.1` | 8.113.665 | 37 (17) |
 | Ext Clip U-Net FACL | `results/ext_clip_u-net_facl` | 9.555.457 | 140 (8) |
+| Ext Clip U-Net Comb V2.1 | `results/ext_clip_u-net_comb_v2.1` | 2.307.329 | 28 (13) |
 | Temp Ext Clip U-Net FACL | `results/temp_ext_clip_u-net_facl` | 5.410.241 | 60 (47) |
 
-Los dos últimos son los que se analizan en el capítulo de resultados.
+La Ext Clip U-Net Comb V2.1, la Ext Clip U-Net FACL y la Temp Ext Clip U-Net FACL
+son los que se analizan en el capítulo de resultados. La Comb V2.1 se evalúa con
+los pesos de su mejor época (la 13, ensayo 92 de su Fase 2); `metricas/` incluye
+además las métricas por muestra, la matriz de FSS y el SSIM por ventana en CSV.
 Para la Ext Clip U-Net FACL, `ultima_epoca` es la época evaluada en la tesis
 (la 140) y `mejor_epoca_Lval` corresponde a la época de menor pérdida de
 validación (la 8).
@@ -109,20 +113,22 @@ guarda `modelo` (pesos) y las métricas de validación de esa época; se carga c
 `torch.load(..., weights_only=True)`. La arquitectura se reconstruye con
 `clementina/modelo.py` y los hiperparámetros del ensayo 100.
 
-## Hiperparámetros de los dos últimos modelos
+## Hiperparámetros de los modelos optimizados de las dos últimas etapas
 
-| | Ext Clip U-Net FACL | Temp Ext Clip U-Net FACL |
-|---|---|---|
-| Ensayo de la etapa A (arquitectura) | 106 | 118 |
-| Niveles / filtros | 3 / 64, 128, 256 | 3 / 32, 64, 128 |
-| Tamaños de kernel | 5, 5, 3 | 5, 5, 5 |
-| Ensayo de la etapa B (entrenamiento) | 39 | 100 |
-| Tasa de aprendizaje inicial | 1,22·10⁻⁴ | 5,99·10⁻⁴ (0,000599407) |
-| Tamaño de lote | 8 | 8 |
-| α (FACL) | 0,189 | 0,229 (0,229207) |
-| Épocas | 140 | 60 |
-| Criterio de validación | L_val = ½FAL + ½FCL | MAE normalizado |
-| Época evaluada | 140 | 47 |
+| | Ext Clip U-Net FACL | Ext Clip U-Net Comb V2.1 | Temp Ext Clip U-Net FACL |
+|---|---|---|---|
+| Ensayo de la etapa A (arquitectura) | 106 | 98 | 118 |
+| Niveles / filtros | 3 / 64, 128, 256 | 3 / 32, 64, 128 | 3 / 32, 64, 128 |
+| Tamaños de kernel | 5, 5, 3 | 3, 5, 3 | 5, 5, 5 |
+| Dropout por nivel | 0,03, 0,08, 0,26 | 0,01, 0,16, 0,24 | |
+| Ensayo de la etapa B (entrenamiento) | 39 | 92 | 100 |
+| Tasa de aprendizaje inicial | 1,22·10⁻⁴ | 9,93·10⁻⁵ | 5,99·10⁻⁴ (0,000599407) |
+| Tamaño de lote | 8 | 8 | 8 |
+| Parámetros de la pérdida | α = 0,189 | MAX_PROB = 0,784, w+ = 17,53, rampa de 60 épocas | α = 0,229 (0,229207) |
+| Recorte de gradientes (max_norm) | | 56,1 | |
+| Épocas | 140 | hasta 150, *early stopping* (paciencia 15): 28 | 60 |
+| Criterio de validación | L_val = ½FAL + ½FCL | (WMSE + √HW·FAL + √HW·FCL)/3 | MAE normalizado |
+| Época evaluada | 140 | 13 | 47 |
 
 El ensayo 100 de la búsqueda `etapa_B_oficial` terminó con pérdida de
 validación 0,005871 (época 47), 5.410.241 parámetros y 67.500 pasos de
