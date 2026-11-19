@@ -106,8 +106,8 @@ FCL, probabilidad de usar la FCL, tasa de aprendizaje y segundos por época; la
 mejor época según L_val es la 8, con 0,0467) y los hiperparámetros. Se carga con
 `torch.load(..., weights_only=True)` y la arquitectura de `clementina/modelo.py`.
 `pesos/ext_clip_u-net_facl_trial39_epoca8.pth` guarda los pesos de la época 8
-(L_val de 0,0465), obtenidos entrenando solo las primeras 8 épocas con las mismas
-semillas, hiperparámetros y cronograma de 140 épocas, para comparar con la 140.
+(entrenando solo las primeras 8 épocas con las mismas semillas, hiperparámetros
+y cronograma de 140 épocas), para comparar con la 140.
 
 `pesos/temp_ext_clip_u-net_facl_best_epoca47.pt`, `..._last_epoca60.pt` y
 `..._curva.csv`: Temp Ext Clip U-Net FACL (ensayo 100 de la búsqueda
