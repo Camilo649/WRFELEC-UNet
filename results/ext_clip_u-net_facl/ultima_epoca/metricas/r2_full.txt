@@ -1,0 +1,4 @@
+Model: Fat Short Unet FACL (Optimized)
+Edge crop: 0px
+Active pixels evaluated: 6,125,826
+R²: 0.370303

@@ -1,0 +1,4 @@
+Model: Fat Short Unet FACL (Optimized) epoca 8
+Edge crop: 10px
+Active pixels evaluated: 5,650,082
+R²: 0.118505
