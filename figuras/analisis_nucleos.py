@@ -51,7 +51,7 @@ TIEMPOS = [dt.datetime.strptime(a[11:30], "%Y-%m-%d_%H-%M-%S")
            for a in ARCHIVOS]
 REAL = D["y_real"]
 MODELOS = {
-    "pred_comb_mejor": "Ext U-Net Comb V2.1",
+    "pred_comb_clip": "Ext Clip U-Net Comb V2.1",
     "pred_ext_ultima": "Ext Clip U-Net FACL (época 140)",
     "pred_temp": "Temp Ext Clip U-Net FACL",
 }
@@ -140,6 +140,8 @@ def main():
     con_ant = np.isin(clave, clave[edad >= ANTIGUO_MIN])
     nuevo = (edad < NUEVO_MIN) & con_ant
     antiguo = (edad >= ANTIGUO_MIN) & np.isin(clave, clave[nuevo])
+    intermedio = ((edad >= NUEVO_MIN) & (edad < ANTIGUO_MIN)
+                  & np.isin(clave, clave[nuevo]))
     cols = columnas()
     print(f"UNION={UNION} ENTORNO={ENTORNO} "
           f"MIN_COLUMNAS={MIN_COLUMNAS}")
@@ -160,6 +162,12 @@ def main():
     for j, (k, nombre) in enumerate(MODELOS.items()):
         e = R[:, 5 + j]
         rn = e[nuevo].sum() / R[nuevo, 4].sum()
+        ri = e[intermedio].sum() / R[intermedio, 4].sum()
+        print(f"  [{nombre}] intermedios: {int(intermedio.sum())} "
+              f"(mediana {np.median(R[intermedio, 3]):.0f} columnas), "
+              f"est./sim. {ri:.2f}, con actividad "
+              f"{100 * (e[intermedio] > 0).mean():.1f} %, antiguos con "
+              f"actividad {100 * (e[antiguo] > 0).mean():.1f} %")
         ra = e[antiguo].sum() / R[antiguo, 4].sum()
         c = cols[k]
         por_torm = []

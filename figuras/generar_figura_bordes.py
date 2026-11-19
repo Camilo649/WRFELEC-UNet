@@ -26,6 +26,7 @@ T = [dt.datetime.strptime(a[11:30], "%Y-%m-%d_%H-%M-%S")
 R = D["y_real"]
 E = D["pred_ext_ultima"]
 M = D["pred_temp"]
+C = D["pred_comb_clip"]
 n, H, W = R.shape
 B = 8                                  # ancho de la banda (columnas)
 
@@ -50,17 +51,18 @@ print("interior: Ext {:.2f}, Temp {:.2f}".format(
 PASO = "2019-03-04 02:00"
 k = [i for i, t in enumerate(T)
      if t.strftime("%Y-%m-%d %H:%M") == PASO][0]
-fig, axs = plt.subplots(1, 3, figsize=(6.6, 2.7),
+fig, axs = plt.subplots(1, 4, figsize=(6.8, 2.35),
                         gridspec_kw={"wspace": 0.05})
-for ax, mat, tit in zip(axs, (R[k], E[k], M[k]),
+for ax, mat, tit in zip(axs, (R[k], E[k], C[k], M[k]),
                         ("WRF-ELEC", "Ext Clip U-Net FACL",
+                         "Ext Clip U-Net Comb V2.1",
                          "Temp Ext Clip U-Net FACL")):
     im = ax.imshow(mat, origin="lower", cmap=SEQ_RAYOS, vmin=0,
                    vmax=150, interpolation="nearest")
     limites(ax)
     ax.set_xticks([])
     ax.set_yticks([])
-    ax.set_title(tit, fontsize=8, color=INK, pad=3)
+    ax.set_title(tit, fontsize=7.2, color=INK, pad=3)
     for lado in ax.spines.values():
         lado.set_color(MUTED)
         lado.set_linewidth(0.5)

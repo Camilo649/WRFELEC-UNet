@@ -120,7 +120,7 @@ guarda `modelo` (pesos) y las métricas de validación de esa época; se carga c
 | Ensayo de la etapa A (arquitectura) | 106 | 98 | 118 |
 | Niveles / filtros | 3 / 64, 128, 256 | 3 / 32, 64, 128 | 3 / 32, 64, 128 |
 | Tamaños de kernel | 5, 5, 3 | 3, 5, 3 | 5, 5, 5 |
-| Dropout por nivel | 0,03, 0,08, 0,26 | 0,01, 0,16, 0,24 | |
+| Dropout por nivel | 0,03, 0,08, 0,26 | 0,01, 0,16, 0,24 | 0,08, 0,06, 0,20 |
 | Ensayo de la etapa B (entrenamiento) | 39 | 92 | 100 |
 | Tasa de aprendizaje inicial | 1,22·10⁻⁴ | 9,93·10⁻⁵ | 5,99·10⁻⁴ (0,000599407) |
 | Tamaño de lote | 8 | 8 | 8 |

@@ -58,9 +58,11 @@ NOMBRE_FINAL = "Temp Ext Clip\nU-Net FACL"
 # Modelos del archivo: clave -> (nombre, color, estilo de línea)
 # La Ext Clip U-Net FACL se evalúa con los pesos de su última época
 # (la 140).
+GREEN = "#1a9a7a"
 MODELOS = {
     "pred_ext_ultima": ("Ext Clip U-Net FACL (época 140)", ORANGE,
                         "-"),
+    "pred_comb_clip": ("Ext Clip U-Net Comb V2.1", GREEN, "-"),
     "pred_temp": ("Temp Ext Clip U-Net FACL", BLUE, "-"),
 }
 RUTA_METRICAS = os.path.join(HERE, "datos", "metricas_resultados.json")
@@ -82,7 +84,7 @@ def cargar_metricas():
             return json.load(f)
     cfg = tuple((u, v) for v in VECINDARIOS for u in UMBRALES)
     out = {}
-    for clave in list(MODELOS) + ["pred_comb_mejor"]:
+    for clave in list(MODELOS):
         print("Calculando métricas de", clave, "...")
         out[clave] = metricas(REAL, D[clave], fss_cfg=cfg)
     with open(RUTA_METRICAS, "w", encoding="utf8") as f:
@@ -205,7 +207,7 @@ def fig_series():
                       fontsize=7.5,
                       color=MUTED)
     hs, ls = axs[0, 0].get_legend_handles_labels()
-    fig.legend(hs, ls, loc="lower center", ncol=2, fontsize=7.5,
+    fig.legend(hs, ls, loc="lower center", ncol=3, fontsize=7.5,
                frameon=False, bbox_to_anchor=(0.5, -0.075),
                handlelength=2.6, columnspacing=2.0)
     guardar(fig, "series_tormentas.pdf")
@@ -223,7 +225,7 @@ VENTANA_CSI = 15      # pasos de tiempo (30 minutos)
 
 
 def fig_csi():
-    claves = ["pred_ext_ultima", "pred_temp"]
+    claves = list(MODELOS)
     csi = {k: csi_por_paso(REAL, D[k]) for k in claves}
     s_real = REAL.reshape(len(REAL), -1).sum(1, dtype=np.int64) / 1e3
     fig, axs = plt.subplots(2, 2, figsize=(6.8, 4.9),
@@ -255,8 +257,8 @@ def fig_csi():
     hs, ls = axs[0, 0].get_legend_handles_labels()
     hs.append(mpl.patches.Patch(color="#dcdcd8"))
     ls.append("Actividad total simulada")
-    fig.legend(hs, ls, loc="lower center", ncol=3, fontsize=7.5,
-               frameon=False, bbox_to_anchor=(0.5, -0.04),
+    fig.legend(hs, ls, loc="lower center", ncol=2, fontsize=7.5,
+               frameon=False, bbox_to_anchor=(0.5, -0.075),
                handlelength=2.6, columnspacing=2.0)
     guardar(fig, "csi_tormentas.pdf")
 
@@ -266,11 +268,12 @@ def fig_csi():
 # ---------------------------------------------------------------
 def fig_fss():
     met = cargar_metricas()
-    claves = ["pred_ext_ultima", "pred_temp"]
+    claves = list(MODELOS)
     titulos = ["(a) Ext Clip U-Net FACL",
-               "(b) Temp Ext Clip U-Net FACL"]
-    fig, axs = plt.subplots(1, 2, figsize=(6.8, 2.75),
-                            gridspec_kw={"wspace": 0.12})
+               "(b) Ext Clip U-Net Comb V2.1",
+               "(c) Temp Ext Clip U-Net FACL"]
+    fig, axs = plt.subplots(1, 3, figsize=(6.8, 2.45),
+                            gridspec_kw={"wspace": 0.1})
     for ax, k, tit in zip(axs, claves, titulos):
         Mx = np.array([[met[k][f"FSS_u{u}_v{v}"] for u in UMBRALES]
                        for v in VECINDARIOS])
@@ -279,7 +282,7 @@ def fig_fss():
         for i in range(len(VECINDARIOS)):
             for j in range(len(UMBRALES)):
                 ax.text(j, i, coma(Mx[i, j], 2), ha="center",
-                        va="center", fontsize=8,
+                        va="center", fontsize=7,
                         color="white" if Mx[i, j] > 0.78 else INK)
         ax.set_xticks(range(len(UMBRALES)))
         ax.set_xticklabels([str(u) for u in UMBRALES])
@@ -298,7 +301,8 @@ def fig_fss():
                       color=MUTED)
     axs[0].set_ylabel("Vecindario (columnas)", fontsize=7.5,
                       color=MUTED)
-    axs[1].set_yticklabels([])
+    for ax in axs[1:]:
+        ax.set_yticklabels([])
     cb = fig.colorbar(im, ax=list(axs), fraction=0.035, pad=0.02,
                       ticks=[0.4, 0.6, 0.8, 1.0])
     cb.ax.set_yticklabels([coma(x, 1) for x in (0.4, 0.6, 0.8, 1.0)])
@@ -356,10 +360,10 @@ def actualizar_comparacion():
     modelo, salvo la Ext Clip U-Net FACL, con los de su última
     época). La figura se arma con generar_figuras_modelos.py."""
     i = ARCHIVOS.index(ARCHIVO_COMPARACION)
-    nombres = ["Ext U-Net Comb V2.1",
-               "Ext Clip U-Net FACL (Optimized)",
+    nombres = ["Ext Clip U-Net FACL (Optimized)",
+               "Ext Clip U-Net Comb V2.1",
                "Temp Ext Clip U-Net FACL"]
-    claves = ["pred_comb_mejor", "pred_ext_ultima", "pred_temp"]
+    claves = ["pred_ext_ultima", "pred_comb_clip", "pred_temp"]
     preds = np.stack([D[k][i].astype("float32") for k in claves])
     real = REAL[i].astype("float32")
     csi = [float(csi_por_paso(REAL[i:i + 1], D[k][i:i + 1])[0])

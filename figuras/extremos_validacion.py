@@ -17,7 +17,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 D = np.load(os.path.join(HERE, "datos", "resultados_validacion.npz"))
 NOMBRES = {"y_real": "WRF-ELEC",
-           "pred_comb_mejor": "Ext U-Net Comb V2.1",
+           "pred_comb_clip": "Ext Clip U-Net Comb V2.1",
            "pred_ext_ultima": "Ext Clip U-Net FACL",
            "pred_temp": "Temp Ext Clip U-Net FACL"}
 print(f"{'':28s}{'>= 100':>10s}{'= 150':>10s}{'máximo':>8s}")
