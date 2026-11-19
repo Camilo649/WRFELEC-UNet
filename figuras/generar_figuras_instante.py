@@ -346,8 +346,9 @@ def fig_limitacion_cnn():
 
 def fig_campo_receptivo():
     """Campo receptivo (a escala) de la CNN base (7x7) y de la U-Net
-    final (200x200, calculado con las dependencias exactas de la
-    arquitectura) para el mismo píxel de salida, sobre el dominio."""
+    del mejor modelo, la Ext Clip U-Net Comb V2.1 (132x132, calculado
+    con las dependencias exactas de la arquitectura) para el mismo
+    píxel de salida, sobre el dominio."""
     import matplotlib.patheffects as pe
     h = canal("HIELO_t")
     y = D["y_real"]
@@ -355,7 +356,7 @@ def fig_campo_receptivo():
     ci, cj = np.unravel_index(sub.argmax(), sub.shape)
     nucleo = (94 + ci, 158 + cj)
     P = (100, 163)
-    RF_UNET = 200
+    RF_UNET = 132
     halo = [pe.withStroke(linewidth=1.8, foreground="white")]
     fig = plt.figure(figsize=(6.6, 3.15))
     gs = fig.add_gridspec(1, 2, wspace=0.10, left=0.01, right=0.99,
@@ -376,7 +377,7 @@ def fig_campo_receptivo():
             lado.set_linewidth(0.5)
         ax.set_title(r"$\mathbf{(%s)}$ %s" % ("ab"[n], tit), loc="left",
                      fontsize=8.5, color=INK, pad=4)
-        # U-Net final
+        # U-Net del mejor modelo
         a = RF_UNET / 2
         for ec, lw, z in (("white", 2.2, 4), (DORANGE, 1.1, 5)):
             ax.add_patch(plt.Rectangle((P[1] - a - 0.5, P[0] - a - 0.5),
@@ -397,7 +398,7 @@ def fig_campo_receptivo():
                                         color=INK),
                         path_effects=halo)
             ax.text(P[1] - a, P[0] + a + 3,
-                    "U-Net final, $200\\times200$", fontsize=7,
+                    "Mejor modelo, $132\\times132$", fontsize=7,
                     color=DORANGE, ha="left", va="bottom", zorder=9,
                     path_effects=halo)
         cb = fig.colorbar(im, ax=ax, orientation="horizontal",
