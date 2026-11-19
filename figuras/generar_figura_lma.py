@@ -77,7 +77,7 @@ ax.set_xticks(range(15, 25))
 ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(coma))
 ax.set_title(r"$\mathbf{(a)}$ Valores originales", loc="left",
              fontsize=8.5, color=INK)
-bx.set_title(r"$\mathbf{(b)}$ Con la restricción a 150 aplicada",
+bx.set_title(r"$\mathbf{(b)}$ Con la restricción a 150 descargas por columna aplicada",
              loc="left", fontsize=8.5, color=INK)
 bx.set_xlabel(f"Hora (UTC) del {dd}", color=INK)
 os.makedirs(IMG, exist_ok=True)
