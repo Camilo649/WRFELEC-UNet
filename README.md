@@ -99,11 +99,15 @@ respectivamente.
 
 ## Pesos
 
-`pesos/ext_clip_u-net_facl_trial39.pth`: checkpoint de la Ext Clip U-Net FACL
-(trial 39, 9.555.457 parámetros, 140 épocas). Contiene `model_state_dict`
-(última época, la evaluada en la tesis), `best_model_state_dict` (mejor época
-según la pérdida de validación) y el historial de entrenamiento. Se carga con
+`pesos/ext_clip_u-net_facl_trial39.pth`: Ext Clip U-Net FACL (ensayo 39 de la
+Fase 2, 9.555.457 parámetros, 140 épocas). Contiene `model_state_dict` (pesos de
+la última época, la 140, que es la evaluada en la tesis), `historial` (L_val, FAL,
+FCL, probabilidad de usar la FCL, tasa de aprendizaje y segundos por época; la
+mejor época según L_val es la 8, con 0,0467) y los hiperparámetros. Se carga con
 `torch.load(..., weights_only=True)` y la arquitectura de `clementina/modelo.py`.
+`pesos/ext_clip_u-net_facl_trial39_epoca8.pth` guarda los pesos de la época 8
+(L_val de 0,0465), obtenidos entrenando solo las primeras 8 épocas con las mismas
+semillas, hiperparámetros y cronograma de 140 épocas, para comparar con la 140.
 
 `pesos/temp_ext_clip_u-net_facl_best_epoca47.pt`, `..._last_epoca60.pt` y
 `..._curva.csv`: Temp Ext Clip U-Net FACL (ensayo 100 de la búsqueda
@@ -133,12 +137,6 @@ guarda `modelo` (pesos) y las métricas de validación de esa época; se carga c
 El ensayo 100 de la búsqueda `etapa_B_oficial` terminó con pérdida de
 validación 0,005871 (época 47), 5.410.241 parámetros y 67.500 pasos de
 entrenamiento.
-
-Nota sobre la Ext Clip U-Net FACL: `pesos/ext_clip_u-net_facl_trial39.pth` es el
-entrenamiento original del ensayo 39 en Clementina (mejor época según L_val:
-la 5). Las curvas de FAL y FCL y las estimaciones de la tesis provienen de un
-reentrenamiento con las mismas semillas e hiperparámetros (mejor época: la 8),
-cuyos pesos no se conservaron.
 
 ## Datos
 

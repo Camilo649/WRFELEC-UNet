@@ -7,3 +7,5 @@ venv/
 *.pt
 *.pth
 .DS_Store
+!pesos/*.pt
+!pesos/*.pth
