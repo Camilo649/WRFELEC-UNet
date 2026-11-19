@@ -53,7 +53,8 @@ TIEMPOS = [dt.datetime.strptime(a[11:30], "%Y-%m-%d_%H-%M-%S")
            for a in ARCHIVOS]
 REAL = D["y_real"]
 TEMP = D["pred_temp"]
-NOMBRE_FINAL = "Temp Ext Clip\nU-Net FACL"
+MEJOR = D["pred_comb_clip"]       # mejor modelo, el de la figura de fotogramas
+NOMBRE_MEJOR = "Ext Clip U-Net\nComb V2.1"
 
 # Modelos del archivo: clave -> (nombre, color, estilo de línea)
 # La Ext Clip U-Net FACL se evalúa con los pesos de su última época
@@ -133,13 +134,13 @@ def fig_fotogramas():
             ax_r = fig.add_subplot(gs[2 * bloque, c])
             ax_m = fig.add_subplot(gs[2 * bloque + 1, c])
             im = _mapa(ax_r, REAL[k], vmax)
-            _mapa(ax_m, TEMP[k], vmax)
+            _mapa(ax_m, MEJOR[k], vmax)
             ax_r.set_title(f"{TIEMPOS[k]:%H:%M} UTC", fontsize=8,
                            color=INK, pad=3)
             if c == 0:
                 ax_r.set_ylabel("WRF-ELEC", fontsize=8, color=INK,
                                 labelpad=4)
-                ax_m.set_ylabel(NOMBRE_FINAL, fontsize=8, color=INK,
+                ax_m.set_ylabel(NOMBRE_MEJOR, fontsize=8, color=INK,
                                 labelpad=4, linespacing=1.15)
     cax = fig.add_subplot(gs[4, :])
     pos = cax.get_position()
