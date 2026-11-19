@@ -316,7 +316,7 @@ if __name__ == "__main__":
         1, 1450, e0=r"$E_0=0{,}0464$")
     grafico_importancia(
         en_porcentaje(IMP_CORRIDA2_ULT, E0_CORRIDA2_ULT),
-        "imp_corrida2_ultima.pdf", 1, 1450,
+        "imp_corrida2_ultima.pdf", 1, 700,
         e0=r"$E_0=0{,}0557$")
     A = cargar_analisis()
     fig_correlaciones(A)
