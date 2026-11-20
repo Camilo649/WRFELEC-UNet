@@ -164,43 +164,39 @@ def fig_hovmoller(tormenta=0):
     t = np.array([(TIEMPOS[k] - TIEMPOS[a]).total_seconds() / 3600
                   for k in range(a, b)])
     series = [("WRF-ELEC", REAL),
-              ("Ext Clip\nU-Net FACL", D["pred_ext_ultima"]),
-              ("Ext Clip\nU-Net Comb V2.1", MEJOR),
-              ("Temp Ext Clip\nU-Net FACL", TEMP)]
+              ("Ext Clip U-Net Comb V2.1", MEJOR)]
     # actividad sumada sobre las filas del dominio: (tiempo, columna)
     H = [M[a:b].sum(axis=1) for _, M in series]
     vmax = 2000.0
-    fig = plt.figure(figsize=(6.6, 5.0))
+    fig = plt.figure(figsize=(6.6, 7.4))
     gs = fig.add_gridspec(
-        5, 1, height_ratios=[1, 1, 1, 1, 0.07], hspace=0.16,
-        left=0.12, right=0.99, top=0.985, bottom=0.07)
+        1, 2, wspace=0.06,
+        left=0.085, right=0.995, top=0.94, bottom=0.12)
     im = None
     for i, ((nom, _), h) in enumerate(zip(series, H)):
-        ax = fig.add_subplot(gs[i, 0])
-        im = ax.imshow(h.T, origin="lower", aspect="auto",
+        ax = fig.add_subplot(gs[0, i])
+        im = ax.imshow(h, origin="upper", aspect="auto",
                        cmap=SEQ_RAYOS, vmin=0, vmax=vmax,
                        interpolation="nearest",
-                       extent=(t[0], t[-1], 0, 2 * h.shape[1]))
+                       extent=(0, 2 * h.shape[1], t[-1], t[0]))
         for lado in ax.spines.values():
             lado.set_color(MUTED)
             lado.set_linewidth(0.5)
+        ax.set_xticks([0, 100, 200, 300, 400, 500])
         ax.tick_params(labelsize=7, length=2.5, width=0.5,
                        colors=MUTED)
-        ax.set_ylabel(nom, fontsize=7.5, color=INK, labelpad=4,
-                      linespacing=1.15)
-        if i < 3:
-            ax.set_xticklabels([])
-        else:
-            ax.set_xlabel(
+        ax.set_title(nom, fontsize=8, color=INK, pad=3,
+                     linespacing=1.15)
+        if i == 0:
+            ax.set_ylabel(
                 "Tiempo desde las "
                 f"{TIEMPOS[a]:%H:%M} UTC del {TIEMPOS[a]:%d/%m/%Y} "
                 "(h)", fontsize=8, color=MUTED)
-    fig.text(0.012, 0.52, "Distancia hacia el este (km)",
-             rotation=90, va="center", fontsize=8, color=MUTED)
-    cax = fig.add_subplot(gs[4, 0])
-    pos = cax.get_position()
-    cax.set_position([pos.x0 + 0.2 * pos.width, pos.y0 - 0.03,
-                      0.6 * pos.width, pos.height])
+        else:
+            ax.set_yticklabels([])
+    fig.text(0.54, 0.085, "Distancia hacia el este (km)",
+             ha="center", fontsize=8, color=MUTED)
+    cax = fig.add_axes([0.3, 0.045, 0.5, 0.014])
     cb = fig.colorbar(im, cax=cax, orientation="horizontal")
     cb.locator = mpl.ticker.MaxNLocator(6)
     cb.update_ticks()
