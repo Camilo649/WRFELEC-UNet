@@ -84,15 +84,34 @@ def campo_teorico(kernels, tam=TAM):
 
 
 # --- 3) Modelo y muestras -----------------------------------------------
-CKPT = ('../modelos/etapa_B_Ext_Clip_U-Net_FACL/'
-        'B_trial0039_repro_curvas.pth')
+# Checkpoint de la época 140 (ensayo 39). Probá en este orden; si no
+# está en ninguna, poné a mano la ruta de pesos/ext_clip_u-net_facl_
+# trial39.pth (o de B_trial0039_repro_curvas.pth) en RUTA_A_MANO.
+import os
+RUTA_A_MANO = None
+CANDIDATAS = [
+    RUTA_A_MANO,
+    '../modelos/etapa_B_Ext_Clip_U-Net_FACL/'
+    'B_trial0039_repro_curvas.pth',
+    '../modelos/B_trial0039_repro_curvas.pth',
+    '../pesos/ext_clip_u-net_facl_trial39.pth',
+    'pesos/ext_clip_u-net_facl_trial39.pth',
+    '../modelos/ext_clip_u-net_facl_trial39.pth',
+]
+CKPT = next((r for r in CANDIDATAS if r and os.path.exists(r)), None)
+if CKPT is None:
+    raise FileNotFoundError(
+        'No encontré el checkpoint de la época 140: poné su ruta en '
+        'RUTA_A_MANO')
+print('Checkpoint:', CKPT)
 ARQ = dict(n_niveles=3, n_filtros_base=64, kernel_sizes=[5, 5, 3],
            dropout_ps=[0.024461173266027245, 0.07965792664013316,
                        0.27383264907951727])
 ck = torch.load(CKPT, map_location=device, weights_only=False)
 assert ck['epoca'] == 140, 'el entrenamiento no terminó'
+pesos_ = ck['modelo'] if 'modelo' in ck else ck['model_state_dict']
 m = UNet_WRF(in_channels=3, **ARQ).to(device)
-m.load_state_dict(ck['modelo'])
+m.load_state_dict(pesos_)
 m.eval()
 for p_ in m.parameters():
     p_.requires_grad_(False)            # solo hace falta d(salida)/d(x)
