@@ -157,6 +157,62 @@ def fig_fotogramas():
 
 
 # ---------------------------------------------------------------
+# Diagrama tiempo-longitud de una tormenta
+# ---------------------------------------------------------------
+def fig_hovmoller(tormenta=0):
+    a, b = tormentas()[tormenta]
+    t = np.array([(TIEMPOS[k] - TIEMPOS[a]).total_seconds() / 3600
+                  for k in range(a, b)])
+    series = [("WRF-ELEC", REAL),
+              ("Ext Clip\nU-Net FACL", D["pred_ext_ultima"]),
+              ("Ext Clip\nU-Net Comb V2.1", MEJOR),
+              ("Temp Ext Clip\nU-Net FACL", TEMP)]
+    # actividad sumada sobre las filas del dominio: (tiempo, columna)
+    H = [M[a:b].sum(axis=1) for _, M in series]
+    vmax = 2000.0
+    fig = plt.figure(figsize=(6.6, 5.0))
+    gs = fig.add_gridspec(
+        5, 1, height_ratios=[1, 1, 1, 1, 0.07], hspace=0.16,
+        left=0.12, right=0.99, top=0.985, bottom=0.07)
+    im = None
+    for i, ((nom, _), h) in enumerate(zip(series, H)):
+        ax = fig.add_subplot(gs[i, 0])
+        im = ax.imshow(h.T, origin="lower", aspect="auto",
+                       cmap=SEQ_RAYOS, vmin=0, vmax=vmax,
+                       interpolation="nearest",
+                       extent=(t[0], t[-1], 0, 2 * h.shape[1]))
+        for lado in ax.spines.values():
+            lado.set_color(MUTED)
+            lado.set_linewidth(0.5)
+        ax.tick_params(labelsize=7, length=2.5, width=0.5,
+                       colors=MUTED)
+        ax.set_ylabel(nom, fontsize=7.5, color=INK, labelpad=4,
+                      linespacing=1.15)
+        if i < 3:
+            ax.set_xticklabels([])
+        else:
+            ax.set_xlabel(
+                "Tiempo desde las "
+                f"{TIEMPOS[a]:%H:%M} UTC del {TIEMPOS[a]:%d/%m/%Y} "
+                "(h)", fontsize=8, color=MUTED)
+    fig.text(0.012, 0.52, "Distancia hacia el este (km)",
+             rotation=90, va="center", fontsize=8, color=MUTED)
+    cax = fig.add_subplot(gs[4, 0])
+    pos = cax.get_position()
+    cax.set_position([pos.x0 + 0.2 * pos.width, pos.y0 - 0.03,
+                      0.6 * pos.width, pos.height])
+    cb = fig.colorbar(im, cax=cax, orientation="horizontal")
+    cb.locator = mpl.ticker.MaxNLocator(6)
+    cb.update_ticks()
+    cb.ax.tick_params(labelsize=7.5, length=2.5, width=0.4,
+                      labelcolor=MUTED)
+    cb.outline.set_visible(False)
+    cb.set_label("Suma de LIGHTDENS sobre cada columna de longitud",
+                 fontsize=8, color=MUTED, labelpad=2)
+    guardar(fig, "hovmoller_tormenta.pdf")
+
+
+# ---------------------------------------------------------------
 # Actividad total y CSI por paso de tiempo
 # ---------------------------------------------------------------
 def _eje(ax):
@@ -381,6 +437,7 @@ def actualizar_comparacion():
 
 
 if __name__ == "__main__":
+    fig_hovmoller()
     fig_fotogramas()
     fig_series()
     fig_csi()
