@@ -96,13 +96,11 @@ def fig_comparacion():
     # La Comb V2.1 ("Ext U-Net Comb V2.1" en el .npz) no se
     # muestra: no se compara con los modelos optimizados.
     orden = [
-        "Bob",
         "Ext Clip U-Net FACL (Optimized)",
         "Ext Clip U-Net Comb V2.1",
         "Temp Ext Clip U-Net FACL",
     ]
     etiqueta = {
-        "Bob": "Bob",
         "Ext Clip U-Net Comb V2.1":
             "Ext Clip\nU-Net Comb V2.1",
         "Ext Clip U-Net FACL (Optimized)":
@@ -111,18 +109,17 @@ def fig_comparacion():
             "Temp Ext Clip\nU-Net FACL",
     }
     rojo = "#c00000"
-    preds["Bob"] = np.zeros_like(real)
     vmax = float(max([real.max()] + [preds[n].max() for n in orden
                                      if n in preds]))
     vmax = min(vmax, 150.0)
 
     fig = plt.figure(figsize=(6.8, 2.2))
     gs = fig.add_gridspec(
-        2, 5, height_ratios=[1, 0.07], wspace=0.08,
+        2, 4, height_ratios=[1, 0.07], wspace=0.08,
         hspace=0.32, left=0.01, right=0.99, top=0.86,
         bottom=0.16)
-    # una fila de 4 paneles: WRF-ELEC, Bob y los dos modelos
-    axs = [fig.add_subplot(gs[0, k]) for k in range(5)]
+    # una fila de 4 paneles: WRF-ELEC y los tres modelos
+    axs = [fig.add_subplot(gs[0, k]) for k in range(4)]
     _panel(axs[0], real, "WRF-ELEC", vmax)
     im = axs[0].im
     for ax, nom in zip(axs[1:], orden):
@@ -132,7 +129,7 @@ def fig_comparacion():
     for ax in axs:
         ax.set_xlim(c0 - 0.5, c1 - 0.5)
         ax.set_ylim(f0 - 0.5, f1 - 0.5)
-    cax = fig.add_subplot(gs[1, 1:4])
+    cax = fig.add_subplot(gs[1, 1:3])
     cb = fig.colorbar(im, cax=cax, orientation="horizontal")
     cb.locator = mpl.ticker.MaxNLocator(7)
     cb.update_ticks()
