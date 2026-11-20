@@ -146,5 +146,85 @@ def fig_comparacion():
     plt.close(fig)
 
 
+# ---------------------------------------------------------------
+# Reconstrucciones de las cuatro tormentas de validación
+# ---------------------------------------------------------------
+# Un instante por tormenta (índice en resultados_validacion.npz),
+# elegido para mostrar el difuminado de la Comb V2.1 frente a los
+# bordes más nítidos de la FACL.
+INSTANTES_TORMENTAS = (666, 805, 1034, 1691)
+MITAD = 47
+
+
+def _recortes_tormentas():
+    """Recortes de los cuatro instantes (se guardan en un .npz
+    chico para poder regenerar la figura sin el archivo grande)."""
+    from scipy.ndimage import gaussian_filter
+    chico = os.path.join(HERE, "datos", "reconstrucciones_tormentas.npz")
+    if os.path.exists(chico):
+        return dict(np.load(chico, allow_pickle=True))
+    D = np.load(os.path.join(HERE, "datos", "resultados_validacion.npz"))
+    mods = ("y_real", "pred_ext_ultima", "pred_comb_clip", "pred_temp")
+    out = {m: [] for m in mods}
+    out["archivos"] = []
+    for k in INSTANTES_TORMENTAS:
+        g = gaussian_filter(D["y_real"][k].astype(float), 6)
+        cy, cx = np.unravel_index(g.argmax(), g.shape)
+        cy = min(max(cy, MITAD), M_N - MITAD)
+        cx = min(max(cx, MITAD), M_N - MITAD)
+        for m in mods:
+            out[m].append(D[m][k][cy - MITAD:cy + MITAD,
+                                  cx - MITAD:cx + MITAD])
+        out["archivos"].append(str(D["archivos"][k]))
+    out = {m: np.array(v) for m, v in out.items()}
+    np.savez_compressed(chico, **out)
+    return out
+
+
+def fig_comparacion_tormentas():
+    import datetime as dt
+    R = _recortes_tormentas()
+    cols = [("y_real", "WRF-ELEC"),
+            ("pred_ext_ultima", "Ext Clip\nU-Net FACL"),
+            ("pred_comb_clip", "Ext Clip\nU-Net Comb V2.1"),
+            ("pred_temp", "Temp Ext Clip\nU-Net FACL")]
+    vmax = 150.0
+    fig = plt.figure(figsize=(6.8, 6.9))
+    gs = fig.add_gridspec(
+        5, 4, height_ratios=[1, 1, 1, 1, 0.06], wspace=0.06,
+        hspace=0.10, left=0.07, right=0.99, top=0.93, bottom=0.07)
+    im = None
+    for i in range(4):
+        t = dt.datetime.strptime(str(R["archivos"][i])[11:30],
+                                 "%Y-%m-%d_%H-%M-%S")
+        for j, (clave, nom) in enumerate(cols):
+            ax = fig.add_subplot(gs[i, j])
+            im = ax.imshow(R[clave][i], origin="lower",
+                           cmap=SEQ_RAYOS, vmin=0, vmax=vmax,
+                           interpolation="nearest")
+            ax.set_xticks([])
+            ax.set_yticks([])
+            for lado in ax.spines.values():
+                lado.set_color(MUTED)
+                lado.set_linewidth(0.5)
+            if i == 0:
+                ax.set_title(nom, fontsize=7.2, color=INK, pad=3,
+                             linespacing=1.15)
+            if j == 0:
+                ax.set_ylabel(t.strftime("%d/%m/%Y\n%H:%M UTC"),
+                              fontsize=7, color=INK, labelpad=3)
+    cax = fig.add_subplot(gs[4, 1:3])
+    cb = fig.colorbar(im, cax=cax, orientation="horizontal")
+    cb.locator = mpl.ticker.MaxNLocator(7)
+    cb.update_ticks()
+    cb.ax.tick_params(labelsize=7.5, length=2.5, width=0.4,
+                      labelcolor=MUTED)
+    cb.outline.set_visible(False)
+    cb.set_label("LIGHTDENS", fontsize=8, color=MUTED, labelpad=2)
+    guardar(fig, "comparacion_reconstrucciones_tormentas.pdf")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_comparacion()
+    fig_comparacion_tormentas()
