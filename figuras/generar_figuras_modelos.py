@@ -167,6 +167,7 @@ def _recortes_tormentas():
     mods = ("y_real", "pred_ext_ultima", "pred_comb_clip", "pred_temp")
     out = {m: [] for m in mods}
     out["archivos"] = []
+    out["origen"] = []
     for k in INSTANTES_TORMENTAS:
         g = gaussian_filter(D["y_real"][k].astype(float), 6)
         cy, cx = np.unravel_index(g.argmax(), g.shape)
@@ -176,6 +177,7 @@ def _recortes_tormentas():
             out[m].append(D[m][k][cy - MITAD:cy + MITAD,
                                   cx - MITAD:cx + MITAD])
         out["archivos"].append(str(D["archivos"][k]))
+        out["origen"].append((cy - MITAD, cx - MITAD))
     out = {m: np.array(v) for m, v in out.items()}
     np.savez_compressed(chico, **out)
     return out
@@ -199,9 +201,14 @@ def fig_comparacion_tormentas():
                                  "%Y-%m-%d_%H-%M-%S")
         for j, (clave, nom) in enumerate(cols):
             ax = fig.add_subplot(gs[i, j])
+            fy, fx = [int(v) for v in R["origen"][i]]
+            n = R[clave][i].shape[0]
             im = ax.imshow(R[clave][i], origin="lower",
                            cmap=SEQ_RAYOS, vmin=0, vmax=vmax,
-                           interpolation="nearest")
+                           interpolation="nearest",
+                           extent=(fx - 0.5, fx + n - 0.5,
+                                   fy - 0.5, fy + n - 0.5))
+            limites(ax)
             ax.set_xticks([])
             ax.set_yticks([])
             for lado in ax.spines.values():
