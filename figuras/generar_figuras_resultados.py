@@ -18,6 +18,7 @@ Genera:
     img/series_tormentas.pdf      actividad total por paso de tiempo
                                   de las cuatro tormentas
     img/csi_tormentas.pdf         CSI por paso de tiempo
+    img/fss_matriz.pdf            FSS según umbral y vecindario
     img/distribucion_lightdens.pdf
                                   cantidad de columnas con cada
                                   valor de LIGHTDENS: WRF-ELEC y
@@ -264,6 +265,55 @@ def fig_csi():
 
 
 # ---------------------------------------------------------------
+# Matriz de FSS
+# ---------------------------------------------------------------
+def fig_fss():
+    met = cargar_metricas()
+    claves = list(MODELOS)
+    titulos = ["(a) Ext Clip U-Net FACL",
+               "(b) Ext Clip U-Net Comb V2.1",
+               "(c) Temp Ext Clip U-Net FACL"]
+    fig, axs = plt.subplots(1, 3, figsize=(6.8, 2.45),
+                            gridspec_kw={"wspace": 0.1})
+    for ax, k, tit in zip(axs, claves, titulos):
+        Mx = np.array([[met[k][f"FSS_u{u}_v{v}"] for u in UMBRALES]
+                       for v in VECINDARIOS])
+        im = ax.imshow(Mx, origin="lower", cmap=SEQ, vmin=0.4,
+                       vmax=1.0, aspect="auto")
+        for i in range(len(VECINDARIOS)):
+            for j in range(len(UMBRALES)):
+                ax.text(j, i, coma(Mx[i, j], 2), ha="center",
+                        va="center", fontsize=7,
+                        color="white" if Mx[i, j] > 0.78 else INK)
+        ax.set_xticks(range(len(UMBRALES)))
+        ax.set_xticklabels([str(u) for u in UMBRALES])
+        ax.set_yticks(range(len(VECINDARIOS)))
+        ax.set_yticklabels([f"{v}$\\times${v}"
+                            for v in VECINDARIOS])
+        ax.set_xticks(np.arange(-.5, len(UMBRALES)), minor=True)
+        ax.set_yticks(np.arange(-.5, len(VECINDARIOS)), minor=True)
+        ax.grid(which="minor", color="white", lw=1.4)
+        ax.tick_params(which="both", length=0, labelsize=7.5,
+                       labelcolor=MUTED)
+        for sp in ax.spines.values():
+            sp.set_visible(False)
+        ax.set_title(tit, fontsize=8, color=INK, loc="left", pad=4)
+        ax.set_xlabel("Umbral de LIGHTDENS", fontsize=7.5,
+                      color=MUTED)
+    axs[0].set_ylabel("Vecindario (columnas)", fontsize=7.5,
+                      color=MUTED)
+    for ax in axs[1:]:
+        ax.set_yticklabels([])
+    cb = fig.colorbar(im, ax=list(axs), fraction=0.035, pad=0.02,
+                      ticks=[0.4, 0.6, 0.8, 1.0])
+    cb.ax.set_yticklabels([coma(x, 1) for x in (0.4, 0.6, 0.8, 1.0)])
+    cb.set_label("FSS", fontsize=7.5, color=MUTED)
+    cb.ax.tick_params(labelsize=7.5, labelcolor=MUTED, length=0)
+    cb.outline.set_visible(False)
+    guardar(fig, "fss_matriz.pdf")
+
+
+# ---------------------------------------------------------------
 # Distribución de LIGHTDENS
 # ---------------------------------------------------------------
 def _conteo(M):
@@ -334,5 +384,6 @@ if __name__ == "__main__":
     fig_fotogramas()
     fig_series()
     fig_csi()
+    fig_fss()
     fig_distribucion()
     actualizar_comparacion()
