@@ -42,6 +42,7 @@ INK = "#222222"
 BLUE = "#2a78d6"
 ORANGE = "#eb6834"
 RED = "#c0392b"
+GREEN = "#1a9a7a"        # color de la Comb V2.1 en toda la monografía
 COLORES = [BLUE, ORANGE, "#3a8a5a", "#8a5ab8"]
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -72,8 +73,8 @@ im = ax1.imshow(M, extent=(-H - 0.5, H + 0.5, H + 0.5, -H - 0.5),
 lado = L_teo[k]
 ax1.add_patch(Rectangle((-lado / 2, -lado / 2), lado, lado, fc="none",
                         ec=INK, lw=1.0))
-ax1.add_patch(Circle((0, 0), r90[k], fc="none", ec=RED, lw=1.2))
-ax1.add_patch(Circle((0, 0), r50[k], fc="none", ec=RED, lw=1.0,
+ax1.add_patch(Circle((0, 0), r90[k], fc="none", ec=GREEN, lw=1.2))
+ax1.add_patch(Circle((0, 0), r50[k], fc="none", ec=GREEN, lw=1.0,
                      ls=(0, (3, 1.5))))
 ax1.set_xlim(-H * 1.15, H * 1.15)
 ax1.set_ylim(H * 1.15, -H * 1.15)
@@ -87,7 +88,7 @@ cb.set_label("Influencia (fracción por píxel)", fontsize=7)
 from matplotlib.lines import Line2D
 radios = np.arange(acum.shape[1])
 for i, nom in enumerate(nombres):
-    c = COLORES[i % len(COLORES)]
+    c = GREEN if len(nombres) == 1 else COLORES[i % len(COLORES)]
     ax2.plot(radios, acum[i], color=c, lw=1.2)
     ax2.axvline(L_teo[i] / 2, color=c, lw=0.8, ls=":")
     ax2.axvline(r90[i], color=c, lw=0.8, ls="--")
@@ -100,7 +101,7 @@ ax2.set_xlabel("Distancia al píxel de salida (píxeles)")
 ax2.set_ylabel("Fracción acumulada de la influencia")
 ax2.set_title("(b)", fontsize=8, loc="left")
 if len(nombres) == 1:       # un solo modelo: leyenda de los trazos
-    c = COLORES[0]
+    c = GREEN
     asas = [Line2D([], [], color=c, lw=1.2),
             Line2D([], [], color=c, lw=0.8, ls=":"),
             Line2D([], [], color=c, lw=0.8, ls="--"),
