@@ -29,7 +29,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CONSTRAINED = True      # diseño automático en vez de fracciones fijas
 RALEAR = True           # quitar marcas que se pisan
 
-# figura: (script, escala)
+# figura: (script, escala[, diseño automático = True])
 ESCALAS = {
     "ejemplo_problema": ("generar_figuras_instante.py", 0.72),
     "ejemplo_variables": ("generar_figuras_instante.py", 0.62),
@@ -44,6 +44,8 @@ ESCALAS = {
     "lma_vs_wrf": ("generar_figura_lma.py", 0.64),
     "campo_efectivo": ("generar_figura_campo_efectivo_tres.py", 0.78),
     "Cumulonimbus": ("generar_cumulonimbus.py", 0.65),
+    "facl_espectros": ("generar_figuras_facl.py", 0.66),
+    "facl_cronograma": ("generar_figuras_facl.py", 0.82, False),
     "redes_unet": ("generar_unet_final.py", 0.72),
 }
 
@@ -134,9 +136,11 @@ def main():
     os.makedirs(salida, exist_ok=True)
     grupos = {}
     for n in nombres:
-        script, escala = ESCALAS[n]
-        grupos.setdefault((script, escala), set()).add(n)
-    for (script, escala), solo in grupos.items():
+        script, escala, *auto = ESCALAS[n]
+        grupos.setdefault((script, escala, *auto), set()).add(n)
+    global CONSTRAINED
+    for (script, escala, *auto), solo in grupos.items():
+        CONSTRAINED = auto[0] if auto else True
         print(f"== {script} (escala {escala}): {', '.join(sorted(solo))}")
         correr(script, escala, solo, salida)
 
