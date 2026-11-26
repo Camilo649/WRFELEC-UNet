@@ -26,19 +26,20 @@ matplotlib.use("Agg")
 from matplotlib.figure import Figure
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+AJUSTE = {}             # sy: factor extra de alto; hspace
 CONSTRAINED = True      # diseño automático en vez de fracciones fijas
 RALEAR = True           # quitar marcas que se pisan
 
 # figura: (script, escala[, diseño automático = True])
 ESCALAS = {
     "ejemplo_problema": ("generar_figuras_instante.py", 0.72),
-    "ejemplo_variables": ("generar_figuras_instante.py", 0.62),
+    "ejemplo_variables": ("generar_figuras_instante.py", 0.7, False),
     "deltas_hielo": ("generar_figuras_instante.py", 0.42),
     "limitacion_cnn_base": ("generar_figuras_instante.py", 0.61),
     "imp_corrida1": ("generar_figuras_datos.py", 0.78),
     "comparacion_reconstrucciones_tormentas":
         ("generar_figuras_modelos.py", 0.40),
-    "series_tormentas": ("generar_figuras_resultados.py", 0.85),
+    "series_tormentas": ("generar_figuras_resultados.py", 0.85, False),
     "distribucion_lightdens": ("generar_figuras_resultados.py", 0.58),
     "bordes_dominio": ("generar_figura_bordes.py", 0.80),
     "lma_vs_wrf": ("generar_figura_lma.py", 0.64),
@@ -48,6 +49,11 @@ ESCALAS = {
     "facl_cronograma": ("generar_figuras_facl.py", 0.82, False),
     "redes_unet": ("generar_unet_final.py", 0.72),
 }
+
+
+# ajustes propios de una figura (alto relativo, hspace)
+AJUSTES = {"ejemplo_variables": {"sy": 0.92, "hspace": 0.62},
+           "series_tormentas": {"hspace": 0.42}}
 
 
 def _oscurecer(fig):
@@ -77,7 +83,7 @@ def _ralear(fig):
                 continue
             for paso in (2, 3, 4):
                 cajas = [t.label1.get_window_extent(rend).expanded(
-                    1.08, 1.0) for t in eje.get_major_ticks()
+                    1.45, 1.0) for t in eje.get_major_ticks()
                     if t.label1.get_visible() and t.label1.get_text()]
                 if not any(a.overlaps(b) for i, a in enumerate(cajas)
                            for b in cajas[i + 1:]):
@@ -101,18 +107,31 @@ def correr(script, escala, solo, salida):
         if CONSTRAINED and "layout" not in k \
                 and "constrained_layout" not in k:
             k["layout"] = "constrained"
-        iniciar(self, *a, figsize=(figsize[0] * escala,
-                                   figsize[1] * escala), **k)
+        iniciar(self, *a, figsize=(
+            figsize[0] * escala,
+            figsize[1] * escala * AJUSTE.get("sy", 1)), **k)
 
     def savefig(self, fname, *a, **k):
         base = os.path.basename(str(fname))
         if os.path.splitext(base)[0] not in solo:
             return None
         _oscurecer(self)
+        eng = self.get_layout_engine()
+        if eng is not None and "h_pad" in AJUSTE:
+            eng.set(h_pad=AJUSTE["h_pad"], hspace=0.0)
         if RALEAR:
             _ralear(self)
         return guardar(self, os.path.join(salida, base), *a, **k)
 
+    from matplotlib.gridspec import GridSpec
+    gs_init = GridSpec.__init__
+
+    def gsinit(self, *a, **k):
+        if "hspace" in AJUSTE:
+            k["hspace"] = AJUSTE["hspace"]
+        gs_init(self, *a, **k)
+
+    GridSpec.__init__ = gsinit
     Figure.__init__ = init
     Figure.savefig = savefig
     viejo = sys.argv
@@ -123,6 +142,7 @@ def correr(script, escala, solo, salida):
         sys.argv = viejo
         Figure.__init__ = iniciar
         Figure.savefig = guardar
+        GridSpec.__init__ = gs_init
 
 
 def main():
@@ -137,9 +157,12 @@ def main():
     grupos = {}
     for n in nombres:
         script, escala, *auto = ESCALAS[n]
-        grupos.setdefault((script, escala, *auto), set()).add(n)
-    global CONSTRAINED
-    for (script, escala, *auto), solo in grupos.items():
+        extra = tuple(sorted(AJUSTES.get(n, {}).items()))
+        grupos.setdefault((script, escala, extra, *auto),
+                          set()).add(n)
+    global CONSTRAINED, AJUSTE
+    for (script, escala, extra, *auto), solo in grupos.items():
+        AJUSTE = dict(extra)
         CONSTRAINED = auto[0] if auto else True
         print(f"== {script} (escala {escala}): {', '.join(sorted(solo))}")
         correr(script, escala, solo, salida)
