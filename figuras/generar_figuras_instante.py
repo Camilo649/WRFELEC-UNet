@@ -194,11 +194,18 @@ def fig_deltas():
     # grilla de 297x297, con el origen abajo a la izquierda).
     c0, c1, f0, f1 = ZOOM_DELTAS
     sl = (slice(f0, f1), slice(c0, c1))
-    r = max(np.abs(d1[sl]).max(), np.abs(d2[sl]).max())
-    panel(axs[0], h, SEQ, "(a) HIELO en $t$ (kg/kg)", 0, h[sl].max(),
-          nd=3)
-    panel(axs[1], d1, DIV, "(b) $\\Delta_1$ (kg/kg)", -r, r, nd=3)
-    panel(axs[2], d2, DIV, "(c) $\\Delta_2$ (kg/kg)", -r, r, nd=3)
+    # rangos redondeados, con marcas solo en los extremos para que
+    # las tres barras se lean igual
+    r = np.ceil(max(np.abs(d1[sl]).max(), np.abs(d2[sl]).max())
+                * 100) / 100
+    hm = np.ceil(h[sl].max() * 100) / 100
+    for ax_, M_, cm_, tit, lo, hi in (
+            (axs[0], h, SEQ, "(a) HIELO en $t$ (kg/kg)", 0, hm),
+            (axs[1], d1, DIV, "(b) $\\Delta_1$ (kg/kg)", -r, r),
+            (axs[2], d2, DIV, "(c) $\\Delta_2$ (kg/kg)", -r, r)):
+        cb_ = panel(ax_, M_, cm_, tit, lo, hi, nd=3)
+        cb_.locator = mpl.ticker.FixedLocator([lo, hi])
+        cb_.update_ticks()
     for ax in axs:
         ax.set_xlim(c0 - 0.5, c1 - 0.5)
         ax.set_ylim(f0 - 0.5, f1 - 0.5)
