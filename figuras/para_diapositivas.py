@@ -71,28 +71,40 @@ def _oscurecer(fig):
 
 
 def _ralear(fig):
-    """Quita marcas de los ejes cuyos rótulos se pisan."""
+    """Quita marcas de los ejes cuyos rótulos se pisan. Solo cuenta
+    las marcas dentro del rango visible y no cambia los límites."""
     fig.canvas.draw()
     rend = fig.canvas.get_renderer()
     for ax in fig.axes:
-        for eje in (ax.xaxis, ax.yaxis):
-            marcas = [(t.get_loc(), t.label1.get_text()) for t in
-                      eje.get_major_ticks() if t.label1.get_visible()
-                      and t.label1.get_text()]
+        for eje, lim in ((ax.xaxis, ax.get_xlim),
+                         (ax.yaxis, ax.get_ylim)):
+            a0, a1 = sorted(lim())
+            tol = 1e-9 * (a1 - a0)
+
+            def visibles():
+                return [t for t in eje.get_major_ticks()
+                        if a0 - tol <= t.get_loc() <= a1 + tol
+                        and t.label1.get_visible()
+                        and t.label1.get_text()]
+
+            marcas = [(t.get_loc(), t.label1.get_text())
+                      for t in visibles()]
             if len(marcas) < 3:
                 continue
             for paso in (2, 3, 4):
                 cajas = [t.label1.get_window_extent(rend).expanded(
-                    1.45, 1.0) for t in eje.get_major_ticks()
-                    if t.label1.get_visible() and t.label1.get_text()]
+                    1.45, 1.0) for t in visibles()]
                 if not any(a.overlaps(b) for i, a in enumerate(cajas)
                            for b in cajas[i + 1:]):
                     break
                 sub = marcas[::paso]
                 if marcas[-1] not in sub and paso == 2:
                     sub = sub + [marcas[-1]]
+                ant = (ax.get_xlim(), ax.get_ylim())
                 eje.set_ticks([m[0] for m in sub])
                 eje.set_ticklabels([m[1] for m in sub])
+                ax.set_xlim(ant[0])
+                ax.set_ylim(ant[1])
                 fig.canvas.draw()
 
 

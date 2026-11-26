@@ -121,12 +121,15 @@ def _marco(ax):
         lado.set_linewidth(0.6)
 
 
-def _barra(fig, ax, im, unidad, nd):
+def _barra(fig, ax, im, unidad, nd, ticks=None):
     cb = fig.colorbar(im, ax=ax, orientation="horizontal",
                       fraction=0.045, pad=0.05, aspect=22,
                       format=mpl.ticker.FuncFormatter(
                           lambda v, _: coma(v, nd)))
-    cb.locator = mpl.ticker.MaxNLocator(3)
+    if ticks is None:
+        cb.locator = mpl.ticker.MaxNLocator(3)
+    else:
+        cb.locator = mpl.ticker.FixedLocator(ticks)
     cb.update_ticks()
     cb.ax.tick_params(labelsize=6.5, length=2, width=0.4,
                       labelcolor=MUTED, color="#c9c9c4")
@@ -156,12 +159,15 @@ def fig_variables():
     fi, co = np.nonzero(y > 0)
     for celda, (let, nom, uni, M, cm, nd) in zip(celdas, datos):
         ax = fig.add_subplot(celda)
+        # las variables no negativas arrancan en 0 (la barra también)
         im = ax.imshow(M, origin="lower", cmap=cm,
+                       vmin=None if nom == "CTT" else 0,
                        interpolation="nearest")
         _marco(ax)
         limites(ax)
         _titulo(ax, let, nom)
-        _barra(fig, ax, im, uni, nd)
+        _barra(fig, ax, im, uni, nd,
+               ticks=[-60, -20, 20] if nom == "CTT" else None)
     # (g) LIGHTDENS: un punto por columna con descargas, cuyo tamaño
     # y color crecen con el valor
     ax = fig.add_subplot(celdas[6])
