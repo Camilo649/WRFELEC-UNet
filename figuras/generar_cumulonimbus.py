@@ -2,7 +2,7 @@
 """Esquema propio y simplificado de un cumulonimbus (Figura 2.1).
 
 Muestra solo lo que usa el capítulo: corriente ascendente, yunque,
-tropopausa, región de fase mixta con graupel/granizo, precipitación,
+tropopausa, región de fase mixta con granizo, precipitación,
 corriente descendente y salida de aire frío.
 Salida: img/Cumulonimbus.pdf y img/Cumulonimbus.png
 """
@@ -68,7 +68,7 @@ ax.plot([0.2, 9.8], [y0, y0], ls=(0, (4, 3)), color=MUTED, lw=0.9,
 ax.plot([0.2, 9.8], [ytrop, ytrop], ls=(0, (4, 3)), color=MUTED,
         lw=0.9, zorder=1)
 
-# graupel y granizo (puntos) dentro de la región de fase mixta
+# granizo (puntos) dentro de la región de fase mixta
 rng = np.random.default_rng(3)
 gx = rng.uniform(3.9, 5.7, 26)
 gy = rng.uniform(3.7, 6.2, 26)
@@ -115,7 +115,7 @@ rotulo((0.25, 6.6), (1.55, 7.85), "Yunque")
 rotulo((0.25, 5.0), (4.25, 5.0), "Corriente ascendente")
 rotulo((0.25, 2.7), (1.6, 1.82), "Entrada de aire\ncálido y húmedo")
 rotulo((7.35, 6.0), (6.4, 5.6),
-       "Región de fase mixta\n(agua sobreenfriada,\ncristales y graupel)")
+       "Región de fase mixta\n(agua sobreenfriada,\ncristales y granizo)")
 rotulo((7.35, 4.3), (5.62, 4.3), "Corriente descendente")
 rotulo((7.75, 2.1), (7.15, 1.9), "Precipitación\n(lluvia y granizo)")
 rotulo((7.6, 0.35), (7.4, 1.2), "Salida de aire frío",
