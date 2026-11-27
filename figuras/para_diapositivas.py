@@ -45,6 +45,7 @@ ESCALAS = {
     "lma_vs_wrf": ("generar_figura_lma.py", 0.64),
     "campo_efectivo": ("generar_figura_campo_efectivo_tres.py", 0.78),
     "Cumulonimbus": ("generar_cumulonimbus.py", 0.65),
+    "tripolo": ("generar_tripolo.py", 0.72),
     "facl_espectros": ("generar_figuras_facl.py", 0.66),
     "facl_cronograma": ("generar_figuras_facl.py", 0.82, False),
     "redes_unet": ("generar_unet_final.py", 0.72),
